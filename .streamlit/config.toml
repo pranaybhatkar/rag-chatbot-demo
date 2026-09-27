@@ -1,6 +1,12 @@
+# Streamlit server configuration.
+#
+# Streamlit resolves this file relative to the WORKING DIRECTORY, so it is only
+# read when the service starts at the repository root. With Root Directory set
+# to src/ it is silently discarded and everything below is lost.
 [server]
 # Headless is what makes this work on a host. Without it Streamlit tries to
-# open a browser, which is meaningless on a server and can block startup.
+# open a browser, which is meaningless on a server and can block startup on the
+# first-run email prompt.
 headless = true
 # 0.0.0.0, not the 127.0.0.1 default. A server bound to loopback is reachable
 # only from inside the Render container, and the symptom is a deploy that
@@ -18,8 +24,18 @@ address = "0.0.0.0"
 # stray outbound request from a service that has no reason to talk to anyone.
 gatherUsageStats = false
 
-[runner]
-# The index build and the embedding model load both happen on the first query.
-# The default 60s script timeout is not obviously enough for a cold start, and
-# the failure mode is a bare "timeout" with no other clue.
-timeout = 240
+# There is deliberately no [runner] section here.
+#
+# It used to carry `timeout = 240`, written on the belief that the 60 s default
+# script timeout was too short for a cold index build. That option does not
+# exist. Streamlit 1.42.2 accepts no `runner.*` key at all, and every deploy
+# logged, once per process start:
+#
+#   "runner.timeout" is not a valid config option. If you previously had this
+#   config option set, it may have been removed.
+#
+# It was never doing anything -- an unknown key is logged and discarded, not
+# enforced -- so the timeout it appeared to raise was never in force. Removing
+# it silences the warning; it does not change behaviour. scripts/check_config.py
+# now validates every key in this file against the installed Streamlit, so an
+# invented option cannot ship again.

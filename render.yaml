@@ -53,8 +53,17 @@ services:
     # to look like a hang to whoever opens the link first. Left fatal on
     # purpose: a build-time failure is visible and fixable, whereas the same
     # download failing silently at runtime is a timeout in production.
+    #
+    # check_config runs first because it takes a second and reads
+    # .streamlit/config.toml against the Streamlit that was just installed. An
+    # unrecognised key there is not an error at build time or at runtime -- it
+    # is printed once per process start and then ignored, so a bad option looks
+    # like it is working while doing nothing. Validating here turns that class
+    # of typo into a failed build. It must run after pip install, because it
+    # imports Streamlit to ask it what it accepts.
     buildCommand: >-
       pip install --no-cache-dir -r requirements.txt
+      && python scripts/check_config.py
       && python scripts/prefetch_model.py
 
     startCommand: >-
