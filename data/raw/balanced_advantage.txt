@@ -1,0 +1,792 @@
+================================================================================
+HDFC Balanced Advantage Fund
+================================================================================
+[PROVENANCE]
+scheme_id       : HDFC_BAL_ADV
+scheme_name     : HDFC Balanced Advantage Fund
+brief_label     : Balanced Advantage (Hybrid)
+category        : Hybrid - Equity Oriented
+plan            : Direct Growth
+source_url      : https://groww.in/mutual-funds/hdfc-balanced-advantage-fund-direct-growth
+source_tier     : broker
+brief_reference : problemstatement.txt line 13
+slug            : balanced_advantage
+extracted_at    : 2026-09-27T08:29:36+00:00
+fetched_at      : 2026-09-27T08:34:25+00:00
+http_status     : 200
+page_title      : HDFC Balanced Advantage Fund Direct Growth - NAV, Mutual Fund Performance &amp; Portfolio
+content_chars   : 41752
+as_of_date      : 25-Sep-2026
+facts_source    : FUND FACTS (from the page's embedded data payload, verbatim)
+expense_ratio   : 0.78
+riskometer      : Moderately High Riskometer
+benchmark       : NIFTY 50 Hybrid Composite Debt 50:50 Index
+min_sip         : 100
+exit_load       : Exit Load for units in excess of 15% of the investment,1% will be charged for redemption within 1 year.
+last_modified   : 
+================================================================================
+
+--- SECTION 1: FROM problemstatement.txt (verbatim) ---
+problemstatement.txt line 13:
+Balanced Advantage (Hybrid): https://groww.in/mutual-funds/hdfc-balanced-advantage-fund-direct-growth
+
+--- SECTION 2: SOURCE PAGE TEXT (fetched) ---
+FUND FACTS (from the page's embedded data payload, verbatim)
+Fund name: HDFC Balanced Advantage Fund
+Scheme name (as published): HDFC Balanced Advantage Fund Direct Growth
+Plan type: Direct
+Option type: Growth
+Category: Dynamic Asset Allocation
+Expense ratio (TER): 0.78%
+Basic expense ratio (excluding addl. TER): 0.64%
+Exit load: Exit Load for units in excess of 15% of the investment,1% will be charged for redemption within 1 year.
+Stamp duty: 0.005% (from July 1st, 2020)
+Minimum SIP investment: INR 100
+Minimum lumpsum investment: INR 100
+Minimum withdrawal amount: INR 100
+Riskometer level: Moderately High Riskometer
+Benchmark: NIFTY 50 Hybrid Composite Debt 50:50 Index
+Benchmark index name: NIFTY 50 Hybrid Composite Debt 50:50 Index
+Assets under management: INR 107,295.79 crore
+Latest NAV: INR 558
+NAV date: 25-Sep-2026
+Fund manager: Srinivas Rao Ravuri
+Launch date: 01-Jan-2013
+Portfolio turnover ratio: 27
+ISIN: INF179K01WA6
+Direct growth scheme code: 118968
+Registrar and transfer agent (RTA): CAMS
+Scheme objective: The Scheme seeks to provide long term capital appreciation / income from a dynamic mix of equity and debt investments.
+
+Stocks
+Invest in Stocks
+Invest in stocks, ETFs, IPOs with fast orders. Track returns on your stock holdings and view real-time P&L on your positions.
+Intraday
+Monitor top intraday performers in real time
+ETF Screener
+Get the best of Mutual Funds and flexibility of Stocks
+IPO
+Track upcoming and ongoing IPOs
+MTFs
+Buy now, pay later
+Stock Screener
+Filter based on RSI, PE ratio and more
+Stock Events
+Dividends, bonus, buybacks and more
+Demat Account
+Begin your stock market journey
+Share Market Today
+Live news updates from stock market
+F&O
+Trade in Futures & Options
+Trade in F&O using the terminal. View charts, indicators, track your orders , P&L and watchlists in a single space
+Indices
+Track markets across the globe
+Terminal
+Track charts, orders, positions, watchlists in one place
+Option chain
+Analyse chains, view payoffs, create baskets
+Pledge
+Get extra balance for trading
+Commodities
+Trade in Crude Oil, Gold, Silver and more
+API trading
+Set up and execute trades through our API
+Mutual Funds
+Invest in Mutual Funds
+Invest in direct mutual funds at zero charges via lump sump investments or SIPs
+Mutual Fund Houses
+Know about AMCs, funds, fund managers
+NFO’s
+Track all active NFOs in one place
+Mutual Funds by Groww
+Mutual funds by Groww designed for your investment goals
+Start SIP
+Build long-term wealth through disciplined monthly investing.
+Mutual Funds screener
+Filter funds based on risk, fund size and more
+Track Funds
+Import funds and track all investments in a single place
+Compare Funds
+More
+SIP calculator
+Estimate returns on a SIP
+Brokerage calculator
+Estimate charges for your trade/investment
+Margin calculator
+Estimate balance needed to buy/sell a stock
+SWP calculator
+Returns on your systematic withdrawal plan
+Pricing
+Brokerage and charges on Groww
+Blog
+Credit
+Loan against securities and Personal loan
+
+# HDFC Balanced Advantage Fund Direct Growth
+Hybrid
+Dynamic Asset Allocation
+Very High Risk
++11.02 %
+3Y annualised
++0.21 % 1D
+1M
+6M
+1Y
+3Y
+5Y
+All
+NAV: 25 Sep '26
+₹557.73
+Min. for SIP
+₹100
+Fund size (AUM)
+₹1,07,295.79 Cr
+0.78%
+Rating
+5
+
+### Return calculator
+Monthly investment
+₹5,000
+| Over the past | Total investment | Would've become | Historic returns | Returns |
+| 1 year | ₹60,000 | ₹59,315 |  | -1.14 % |
+| 3 years | ₹1,80,000 | ₹1,90,324 |  | + 5.74 % |
+| 5 years | ₹3,00,000 | ₹3,92,814 |  | + 30.94 % |
+| 10 years | ₹6,00,000 | ₹12,55,935 |  | + 109.32 % |
+
+## Holdings ( 326 )
+| Name | Sector | Instruments | Assets |
+| ICICI Bank Ltd | Financial | Equity | 5.32% |
+| HDFC Bank Ltd | Financial | Equity | 4.13% |
+| Reliance Industries Ltd | Energy & Utilities | Equity | 3.74% |
+| State Bank of India | Financial | Equity | 3.46% |
+| Bharti Airtel Ltd | Technology | Equity | 2.93% |
+| Axis Bank Ltd | Financial | Equity | 2.68% |
+| Larsen & Toubro Ltd | Industrials | Equity | 2.59% |
+| GOI Sec 7.18 14/08/2033 | Entities | GOI Securities | 1.99% |
+| NTPC Ltd | Energy & Utilities | Equity | 1.94% |
+| Zomato Ltd | Technology | Equity | 1.65% |
+| Coal India Ltd | Materials | Equity | 1.60% |
+| Infosys Ltd | Technology | Equity | 1.59% |
+| Sun Pharmaceutical Industries Ltd | Healthcare | Equity | 1.54% |
+| Kotak Mahindra Bank Ltd | Financial | Equity | 1.52% |
+| Maruti Suzuki India Ltd | Consumer Discretionary | Equity | 1.46% |
+| HCL Technologies Ltd | Technology | Equity | 1.24% |
+| Tata Consultancy Services Ltd | Technology | Equity | 1.20% |
+| Life Insurance Corporation of India | Financial | Equity | 1.18% |
+| Interglobe Aviation Ltd | Industrials | Equity | 1.18% |
+| Lupin Ltd | Healthcare | Equity | 1.16% |
+| ITC Ltd | Consumer Staples | Equity | 1.02% |
+| Mahindra & Mahindra Ltd | Consumer Discretionary | Equity | 0.87% |
+| SBI Life Insurance Company Ltd | Financial | Equity | 0.87% |
+| Hyundai Motor India Ltd. | Consumer Discretionary | Equity | 0.82% |
+| GAIL (India) Ltd | Energy & Utilities | Equity | 0.81% |
+| Embassy Office Parks REIT | Real Estate | Real Estate Investment Trusts | 0.80% |
+| Divi's Laboratories Ltd | Healthcare | Equity | 0.78% |
+| GOI Sec 7.18 24/07/2037 | Entities | GOI Securities | 0.75% |
+| GOVERNMENT OF INDIA 34238 GOI 22AP64 7.34 FV RS 100 | Entities | GOI Securities | 0.71% |
+| GOVERNMENT OF INDIA 34208 GOI 08AP34 7.1 FV RS 100 | Entities | GOI Securities | 0.70% |
+| Bank Of Baroda | Financial | Equity | 0.67% |
+| Net Current Assets | Unspecified | Net Current Assets | 0.65% |
+| Tata Steel Ltd | Materials | Equity | 0.65% |
+| Apar Industries Ltd | Diversified | Equity | 0.63% |
+| Bharat Petroleum Corporation Ltd | Energy & Utilities | Equity | 0.63% |
+| Indusind Bank Ltd | Financial | Equity | 0.62% |
+| LIC HOUSING FINANCE LTD TR 447 7.57 NCD 18OT29 FVRS1LAC | Financial | Bonds/Debentures | 0.60% |
+| Hindustan Petroleum Corporation Ltd | Energy & Utilities | Equity | 0.60% |
+| Repo | Unspecified | Repo | 0.60% |
+| Power Finance Corporation Ltd | Financial | Equity | 0.58% |
+| STATE BANK OF INDIA SR 2 7.33 BD 20SP39 FVRS1CR | Financial | Bonds | 0.56% |
+| JSW Infrastructure Ltd | Industrials | Equity | 0.55% |
+| GOVERNMENT OF INDIA 35840 GOI 15AP65 6.9 FV RS 100 | Entities | GOI Securities | 0.53% |
+| REC Ltd | Financial | Equity | 0.51% |
+| STATE BANK OF INDIA SR I 7.42 BD 29AG39 FVRS1CR | Financial | Debenture | 0.51% |
+| AU Small Finance Bank Ltd | Financial | Equity | 0.50% |
+| Brookfield India Real Estate Trust REIT | Real Estate | Real Estate Investment Trusts | 0.50% |
+| PIPELINE INFRASTRUCTURE LIMITED SR 3 7.96 NCD 11MR29 FVRS1LAC | Industrials | Debenture | 0.48% |
+| Jindal Steel & Power Ltd | Materials | Equity | 0.47% |
+| Cholamandalam Investment & Finance Company Ltd | Financial | Equity | 0.47% |
+| Ultratech Cement Ltd | Materials | Equity | 0.46% |
+| Ipca Laboratories Ltd | Healthcare | Equity | 0.46% |
+| Hindustan Aeronautics Ltd | Industrials | Equity | 0.44% |
+| Canara HSBC Life Insurance Company Ltd. | Financial | Equity | 0.43% |
+| Aurobindo Pharma Ltd | Healthcare | Equity | 0.43% |
+| Bajaj Auto Ltd | Consumer Discretionary | Equity | 0.43% |
+| TORRENT POWER LIMITED SR 15 TR D 8.20 NCD 24JU36 FVRS1LAC | Energy & Utilities | Non Convertible Debenture | 0.41% |
+| Kaynes Technology India Ltd | Industrials | Equity | 0.39% |
+| Britannia Industries Ltd | Consumer Staples | Equity | 0.39% |
+| Vishal Mega Mart Ltd. | Consumer Staples | Equity | 0.39% |
+| Techno Electric & Engineering Company Ltd | Industrials | Equity | 0.39% |
+| Dynamatic Technologies Ltd | Consumer Discretionary | Equity | 0.39% |
+| BEML Ltd | Industrials | Equity | 0.39% |
+| WeWork India Management Ltd. | Industrials | Equity | 0.39% |
+| Bajaj Finserv Ltd | Financial | Equity | 0.38% |
+| SMALL INDUSTRIES DEVELOPMENT BANK OF INDIA SR VII 7.42 BD 12MR29 FVRS1LAC | Financial | Bonds/NCDs | 0.37% |
+| Apollo Tyres Ltd | Consumer Discretionary | Equity | 0.37% |
+| Bharat Forge Ltd | Consumer Discretionary | Equity | 0.37% |
+| REC LIMITED SR 201B 6.90 BD 31MR31 FVRS10LAC | Financial | Debenture | 0.36% |
+| Gujarat Pipavav Port Ltd | Industrials | Equity | 0.36% |
+| SMALL INDUSTRIES DEVELOPMENT BANK OF INDIA SR V 7.83 BD 24NV28 FVRS1LAC | Financial | Debenture | 0.35% |
+| Five-Star Business Finance Ltd | Financial | Equity | 0.33% |
+| HDFC BANK LIMITED SR AA010 7.80 NCD 06SP32 FVRS10LAC | Financial | Debenture | 0.33% |
+| INDIAN RAILWAY FINANCE CORPORATION LIMITED SR 179 7.44 BD 13JU34 FVRS1LAC | Financial | Bonds | 0.32% |
+| STATE DEVELOPMENT LOAN 36823 GUJ 17DC34 7.27 FV RS 100 | Industrials | State Development Loan | 0.32% |
+| Titagarh Wagons Ltd | Industrials | Equity | 0.32% |
+| HOUSING AND URBAN DEVELOPMENT CORPORATION LIMITED SR E 7.29 NCD 12FB35 FVRS1LAC | Financial | Non Convertible Debenture | 0.32% |
+| Hindustan Unilever Ltd | Consumer Staples | Equity | 0.31% |
+| BAJAJ FINANCE LIMITED 7.55 NCD 03AP35 FVRS1LAC | Financial | Bonds/NCDs | 0.31% |
+| Bosch Ltd | Consumer Discretionary | Equity | 0.31% |
+| Ambuja Cements Ltd | Materials | Equity | 0.31% |
+| Rubicon Research Ltd. | Healthcare | Equity | 0.30% |
+| United Spirits Ltd | Consumer Staples | Equity | 0.29% |
+| INVIT POWERGRID INFRASTRUCTURE INVESTMENT TRUST | Industrials | Infrastructure Investment Trust | 0.29% |
+| Savita Oil Technologies Ltd | Materials | Equity | 0.29% |
+| Mphasis Ltd | Technology | Equity | 0.28% |
+| Oil & Natural Gas Corporation Ltd | Energy & Utilities | Equity | 0.28% |
+| HEXAWARE TECHNOLOGIES LIMITED EQ NEW FV RS.2/- | Technology | Equity | 0.28% |
+| BAJAJ FINANCE LIMITED 7.82% NCD 31JN34 FVRS1LAC | Financial | Debenture | 0.28% |
+| ULTRATECH CEMENT LIMITED SR I 7.22 NCD 02FB29 FVRS1LAC | Materials | Non Convertible Debenture | 0.28% |
+| MUTHOOT FINANCE LIMITED RR NCD 04SP29 FVRS1LAC | Financial | Non Convertible Debenture | 0.28% |
+| HDFC BANK LIMITED SR US006 7.75 NCD 13JU33 FVRS1LAC | Financial | Debenture | 0.27% |
+| JAMNAGAR UTILITIES & POWER PRIVATE LIMITED SR PPD7 7.90 LOA 10AG28 FVRS1LAC | Industrials | Debenture | 0.27% |
+| Kalpataru Power Transmission Ltd | Industrials | Equity | 0.25% |
+| Bharat Dynamics Ltd | Industrials | Equity | 0.25% |
+| Mishra Dhatu Nigam Ltd | Materials | Equity | 0.25% |
+| Lakshmi Machine Works Ltd | Industrials | Equity | 0.24% |
+| GOVERNMENT OF INDIA 31909 GOI 22AG32 7.26 FV RS 100 | Entities | GOI Securities | 0.24% |
+| Aavas Financiers Ltd | Financial | Equity | 0.24% |
+| Godrej Properties Ltd | Real Estate | Equity | 0.23% |
+| HDB FINANCIAL SERVICES LIMITED SR A/1 FX 198 7.988 LOA 08DC26 FVRS1LAC | Financial | Debenture | 0.23% |
+| LIC HOUSING FINANCE LTD TR 439 7.73 NCD 22MR34 FVRS 1LAC | Financial | Non Convertible Debenture | 0.23% |
+| NATIONAL BANK FOR AGRICULTURE AND RURAL DEVELOPMENT SR 25E 7.53 BD 24MR28 FVRS1LAC | Financial | Bonds | 0.23% |
+| BAJAJ HOUSING FINANCE LIMITED 7.66 NCD 20MR28 FVRS1LAC | Financial | Debenture | 0.23% |
+| BAJAJ HOUSING FINANCE LIMITED 7.89 NCD 14JL34 FVRS1LAC | Financial | Debenture | 0.23% |
+| BANK OF BARODA SR XXV 7.75 BD 21DC33 FVRS1CR | Financial | Bonds | 0.23% |
+| BAJAJ FINANCE LIMITED 7.57 NCD 03AP30 FVRS1LAC | Financial | Non Convertible Debenture | 0.23% |
+| PUNJAB NATIONAL BANK SR III 7.34 BD 14FB35 FVRS1LAC | Financial | Bonds | 0.23% |
+| Alkem Laboratories Ltd | Healthcare | Equity | 0.23% |
+| BANK OF BARODA CD 06JAN27 | Financial | Certificate of Deposit | 0.23% |
+| J Kumar Infraprojects Ltd | Industrials | Equity | 0.23% |
+| INDIA UNIVERSAL TRUST AL1 SERIES A3 PTC 25SEP24 | Unspecified | Securitised Debt | 0.21% |
+| NHPC Ltd | Energy & Utilities | Equity | 0.21% |
+| Trent Ltd | Consumer Discretionary | Equity | 0.21% |
+| Time Technoplast Ltd | Materials | Equity | 0.21% |
+| NATIONAL HOUSING BANK 7.35 BD 02JN32 FVRS1LAC | Financial | Bonds | 0.21% |
+| Glenmark Pharmaceuticals Ltd | Healthcare | Equity | 0.20% |
+| Billionbrains Garage Ventures Ltd. | Financial | Equity | 0.20% |
+| CHOLAMANDALAM INVESTMENT AND FINANCE COMPANY LIMITED SR SD72 9.10 NCD 27JU31 FVRS1LAC | Financial | Non Convertible Debenture | 0.19% |
+| Tech Mahindra Ltd | Technology | Equity | 0.19% |
+| STATE BANK OF INDIA SR I 7.81 BD 02NV38 FVRS1CR | Financial | Debenture | 0.19% |
+| INDIAN RAILWAY FINANCE CORPORATION LIMITED SR 175 7.57 BD 18AP29 FVRS1LAC | Financial | Non Convertible Debenture | 0.19% |
+| NATIONAL HOUSING BANK 7.59 BD 08SP27 FVRS1LAC | Financial | Non Convertible Debenture | 0.19% |
+| PCBL Ltd | Materials | Equity | 0.19% |
+| LIC HOUSING FINANCE LTD TR 446 7.65 NCD 19AG31 FVRS1LAC | Financial | Non Convertible Debenture | 0.18% |
+| SUNDARAM FINANCE LIMITED SR Z7 7.24 NCD 14FB28 FVRS1LAC | Financial | Debenture | 0.18% |
+| NATIONAL BANK FOR AGRICULTURE AND RURAL DEVELOPMENT SR 25D 7.40 BD 29AP30 FVRS1LAC | Financial | Bonds | 0.18% |
+| MAHANAGAR TELEPHONE NIGAM LIMITED. SR VIII TR C 7.80 BD 07NV33 FVRS1LAC | Technology | Non Convertible Debenture | 0.18% |
+| Tega Industries Ltd | Industrials | Equity | 0.18% |
+| STATE DEVELOPMENT LOAN 36288 MP 06AG43 7.22 FV RS 100 | Unspecified | State Development Loan | 0.18% |
+| Ashoka Buildcon Ltd | Industrials | Equity | 0.18% |
+| Suven Pharmaceuticals Ltd | Healthcare | Equity | 0.18% |
+| CESC Ltd | Energy & Utilities | Equity | 0.17% |
+| Ashok Leyland Ltd | Industrials | Equity | 0.17% |
+| Tata Motors Ltd | Industrials | Equity | 0.17% |
+| Crompton Greaves Consumer Electricals Ltd | Consumer Discretionary | Equity | 0.16% |
+| CHOLAMANDALAM INVESTMENT AND FINANCE COMPANY LIMITED SR SD80 8.88 NCD 25JU33 FVRS1LAC | Financial | Non Convertible Debenture | 0.16% |
+| INDIAN RAILWAY FINANCE CORPORATION LIMITED SR 180 7.39 BD 15JL34 FVRS1LAC | Financial | Debenture | 0.16% |
+| Asian Paints Ltd | Materials | Equity | 0.16% |
+| 7.35% RECL 31 JULY 2034 | Financial | Bonds | 0.15% |
+| Garden Reach Shipbuilders & Engineers Ltd | Industrials | Equity | 0.15% |
+| NATIONAL BANK FOR AGRICULTURE AND RURAL DEVELOPMENT SR 24E 7.80 BD 15MR27 FVRS1LAC | Financial | Debenture | 0.15% |
+| STATE DEVELOPMENT LOAN 36290 MP 06AG48 7.22 FV RS 100 | Unspecified | State Development Loan | 0.15% |
+| LIC HOUSING FINANCE LTD TR 438 7.8350 NCD 11MY27 FVRS1LAC | Financial | Debenture | 0.14% |
+| CG Power & Industrial Solutions Ltd | Industrials | Equity | 0.14% |
+| Shriram Transport Finance Company Ltd | Financial | Equity | 0.14% |
+| SMALL INDUSTRIES DEVELOPMENT BANK OF INDIA SR VI 7.79 BD 14MY27 FVRS1LAC | Financial | Debenture | 0.14% |
+| NATIONAL BANK FOR AGRICULTURE AND RURAL DEVELOPMENT SR 23I 7.62 LOA 31JN28 FVRS1LAC | Financial | Debenture | 0.14% |
+| Cipla Ltd | Healthcare | Equity | 0.14% |
+| LIC HOUSING FINANCE LTD TR 451 7.66 NCD 11DC29 FVRS 1LAC | Financial | Bonds | 0.14% |
+| MUTHOOT FINANCE LIMITED RR NCD 26JL29 FVRS1LAC | Financial | Debenture | 0.14% |
+| INDIAN RAILWAY FINANCE CORPORATION LIMITED SR 192 BD 01DC35 FVRS1LAC | Financial | Bonds | 0.14% |
+| POWER GRID CORPORATION OF INDIA LIMITED SR LXXX 7.12 BD 24DC34 FVRS1LAC | Energy & Utilities | Bonds | 0.14% |
+| YES BANK LIMITED CD 11MAR27 | Financial | Certificate of Deposit | 0.13% |
+| India Universal Trust AL1 Sec. Debt 8.09 21/11/2027 | Unspecified | Securitised Debt | 0.13% |
+| HDFC Life Insurance Co Ltd | Financial | Equity | 0.13% |
+| INDIAN RAILWAY FINANCE CORPORATION LIMITED SR 187 7.28 BD 14FB40 FVRS1LAC | Financial | Bonds | 0.13% |
+| DLF Ltd | Real Estate | Equity | 0.13% |
+| SUNDARAM FINANCE LIMITED SR Z8 7.45 NCD 16MR29 FVRS1LAC | Financial | Debenture | 0.13% |
+| TATA CAPITAL HOUSING FINANCE LIMITED SR D OP II 7.8 NCD 05AG27 FVRS10LAC | Financial | Debenture | 0.12% |
+| Gujarat Industries Power Company Ltd | Energy & Utilities | Equity | 0.12% |
+| Aditya Birla Sun Life AMC Ltd | Financial | Equity | 0.12% |
+| HOUSING AND URBAN DEVELOPMENT CORPORATION LIMITED SR F 7.37 NCD 12MR35 FVRS1LAC | Financial | Non Convertible Debenture | 0.11% |
+| Info Edge (India) Ltd | Technology | Equity | 0.11% |
+| GOVERNMENT OF INDIA 34733 GOI 05AG54 7.09 FV RS 100 | Entities | GOI Securities | 0.11% |
+| Bandhan Bank Ltd | Financial | Equity | 0.11% |
+| SBI Cards & Payments Services Ltd | Financial | Equity | 0.11% |
+| BAJAJ HOUSING FINANCE LIMITED NCD 7.50 09AP35 FVRS1LAC | Financial | Non Convertible Debenture | 0.11% |
+| Tata Motors Ltd | Consumer Discretionary | Equity | 0.11% |
+| Jio Financial Services Limited | Financial | Equity | 0.11% |
+| JAMNAGAR UTILITIES & POWER PRIVATE LIMITED SR PPD8 7.43 LOA 24OT34 FVRS1LAC | Industrials | Debenture | 0.11% |
+| PIPELINE INFRASTRUCTURE LIMITED SR 2 7.96 NCD 11MR28 FVRS1AC | Industrials | Debenture | 0.11% |
+| Dr. Reddy's Laboratories Ltd | Healthcare | Equity | 0.11% |
+| Whirlpool Of India Ltd | Consumer Discretionary | Equity | 0.11% |
+| LG Electronics India Ltd. | Consumer Discretionary | Equity | 0.11% |
+| Swiggy Ltd. | Technology | Equity | 0.11% |
+| Avenue Supermarts Ltd | Consumer Staples | Equity | 0.10% |
+| Blue Dart Express Ltd | Industrials | Equity | 0.10% |
+| GOVERNMENT OF INDIA 33071 GOI 19JU53 7.3 FV RS 100 | Entities | GOI Securities | 0.10% |
+| REC LIMITED SR 199 7.96 BD 15JU30 FVRS10LAC | Financial | Non Convertible Debenture | 0.10% |
+| POWER FINANCE CORPORATION LIMITED SR 246B 7.38 BD 15JN32 FVRS1LAC | Financial | Bonds | 0.10% |
+| JSW Energy Ltd | Energy & Utilities | Equity | 0.10% |
+| LIC Housing Finance Ltd Debenture 8.75 08/12/2028 | Financial | Debenture | 0.10% |
+| 7.71% GOI 18-May-2066 | Entities | GOI Securities | 0.09% |
+| KOTAK MAHINDRA INVESTMENTS LIMITED 8.1929 NCD 28JN27 FVRS1LAC | Financial | Bonds/NCDs | 0.09% |
+| SMALL INDUSTRIES DEVELOPMENT BANK OF INDIA SR IV 7.79 BD 19AP27 FVRS1LAC | Financial | Bonds | 0.09% |
+| NATIONAL HOUSING BANK 7.51 BD 04AP31 FVRS1LAC | Financial | Bonds/NCDs | 0.09% |
+| NATIONAL HOUSING BANK 7.59 BD 14JL27 FVRS1LAC | Financial | Debenture | 0.09% |
+| LIC HOUSING FINANCE LTD TR 440 7.87 NCD 14MY29 FVRS1LAC | Financial | Debenture | 0.09% |
+| TOYOTA FINANCIAL SERVICES INDIA LIMITED SR S40 8.15 LOA 07SP26 FVRS1LAC | Financial | Debenture | 0.09% |
+| LIC HOUSING FINANCE LIMITED TR- 353 7.75 LOA 23NV27 FVRS10LAC | Financial | Non Convertible Debenture | 0.09% |
+| BAJAJ FINANCE LIMITED 8.08 NCD 20MY36 FVRS1LAC | Financial | Debenture | 0.09% |
+| LIC HOUSING FINANCE LIMITED TR 434 OP I 7.70 LOA 16MY28 FVRS10LAC | Financial | Debenture | 0.09% |
+| LIC HOUSING FINANCE LIMITED TR 417 OPT I 6.40 LOA 30NV26 FVRS10LAC | Financial | Debenture | 0.09% |
+| CHOLAMANDALAM INVESTMENT AND FINANCE COMPANY LIMITED SR 665 RR NCD 27FB29 FVRS1LAC | Financial | Debenture | 0.09% |
+| SMALL INDUSTRIES DEVELOPMENT BANK OF INDIA SR I 7.61 BD 10AG29 FVRS1LAC | Financial | Bonds | 0.09% |
+| INDIAN RAILWAY FINANCE CORPORATION LIMITED SR 181 7.37 BD 31JL29 FVRS1LAC | Financial | Non Convertible Debenture | 0.09% |
+| Jubilant FoodWorks Ltd | Consumer Discretionary | Equity | 0.09% |
+| TATA CAPITAL LIMITED SR B RR NCD 21FB29 FVRS1LAC | Financial | Non Convertible Debenture | 0.09% |
+| STATE DEVELOPMENT LOAN 36384 AP 03SP37 7.63 FV RS 100 | Financial | State Development Loan | 0.09% |
+| POWER FINANCE CORPORATION LIMITED SR 247A 7.44 BD 15JN30 FVRS1LAC | Financial | Bonds | 0.09% |
+| NATIONAL BANK FOR AGRICULTURE AND RURAL DEVELOPMENT SR 26F 7.44 BD 17JL29 FVRS1LAC | Financial | Bonds | 0.09% |
+| POWER FINANCE CORPORATION LIMITED SR 258A 6.92 BD 16FB28 FVRS1LAC | Financial | Debenture | 0.09% |
+| HOUSING AND URBAN DEVELOPMENT CORPORATION LIMITED SR D 6.64 NCD 17JL28 FVRS1LAC | Financial | Non Convertible Debenture | 0.09% |
+| POWER FINANCE CORPORATION LIMITED SR 247B 7.40 BD 15JN35 FVRS1LAC | Financial | Bonds | 0.09% |
+| NATIONAL BANK FOR AGRICULTURE AND RURAL DEVELOPMENT SR 25F 7.37 BD 28MY35 FVRS1LAC | Financial | Bonds | 0.09% |
+| Indraprastha Gas Ltd | Energy & Utilities | Equity | 0.09% |
+| STATE DEVELOPMENT LOAN 36558 MP 01OT45 7.48 FV RS 100 | Unspecified | State Development Loan | 0.09% |
+| BAJAJ FINANCE LIMITED 7.70 NCD 04OT34 FVRS1LAC | Financial | Bonds/Debentures | 0.09% |
+| UNION BANK OF INDIA CD 19JAN27 | Financial | Certificate of Deposit | 0.09% |
+| STATE DEVELOPMENT LOAN 30969 MP 17NV41 6.99 FV RS 100 | Unspecified | State Development Loan | 0.09% |
+| STATE DEVELOPMENT LOAN 36739 GUJ 26NV33 7.07 FV RS 100 | Industrials | State Development Loan | 0.08% |
+| UTI Asset Management Company Ltd | Financial | Equity | 0.08% |
+| Tenneco Clean Air India Ltd. | Consumer Discretionary | Equity | 0.08% |
+| Texmaco Rail & Engineering Ltd | Industrials | Equity | 0.07% |
+| REC LIMITED SR 233 7.53 BD 31MY34 FVRS1LAC | Financial | Bonds | 0.07% |
+| STATE DEVELOPMENT LOAN 36381 AP 03SP33 7.48 FV RS 100 | Financial | State Development Loan | 0.07% |
+| Aegis Vopak Terminals Ltd. | Energy & Utilities | Equity | 0.07% |
+| Zee Entertainment Enterprises Ltd | Consumer Discretionary | Equity | 0.07% |
+| Indian Railway Finance Corporation Ltd Debenture 7.49 30/05/2027 | Financial | Debenture | 0.07% |
+| INDIAN RAILWAY FINANCE CORPORATION LIMITED SR 178 7.46 BD 18JU29 FVRS1LAC | Financial | Non Convertible Debenture | 0.07% |
+| SMALL INDUSTRIES DEVELOPMENT BANK OF INDIA SR V 7.22 BD 10AP29 FVRS1LAC | Financial | Debenture | 0.07% |
+| L&T METRO RAIL (HYDERABAD) LIMITED 7.55 NCD 28AP35 FVRS1LAC | Industrials | Non Convertible Debenture | 0.07% |
+| GOVERNMENT OF INDIA 36320 GOI 18AG55 7.24 FV RS 100 | Entities | GOI Securities | 0.07% |
+| Home First Finance Company India Ltd | Financial | Equity | 0.07% |
+| STATE DEVELOPMENT LOAN 36720 RAJ 19NV37 7.29 FV RS 100 | Unspecified | State Development Loan | 0.06% |
+| PB Fintech Ltd | Financial | Equity | 0.06% |
+| NUVOCO Vistas Corp Ltd | Materials | Equity | 0.06% |
+| STATE DEVELOPMENT LOAN 36383 AP 03SP36 7.62 FV RS 100 | Financial | State Development Loan | 0.06% |
+| ITC Hotels Ltd | Consumer Discretionary | Equity | 0.06% |
+| Vodafone Idea Ltd | Technology | Equity | 0.06% |
+| Milky Mist Dairy Food Ltd. | Consumer Staples | Equity | 0.06% |
+| Housing & Urban Development Corporation Ltd | Financial | Equity | 0.06% |
+| STATE DEVELOPMENT LOAN 36382 AP 03SP34 7.48 FV RS 100 | Financial | State Development Loan | 0.06% |
+| IIFL Wealth Management Ltd | Financial | Equity | 0.06% |
+| Torrent Power Ltd | Energy & Utilities | Equity | 0.05% |
+| HDFC BANK LIMITED SR Y005 6.83 NCD 08JN31 FVRS10LAC | Financial | Non Convertible Debenture | 0.05% |
+| BHARTI TELECOM LIMITED SR XXIX 7.75 NCD 29FB28 FVRS1LAC | Technology | Debenture | 0.05% |
+| Persistent Systems Ltd | Technology | Equity | 0.05% |
+| Westlife Development Ltd | Consumer Discretionary | Equity | 0.05% |
+| Bharti Hexacom Ltd. | Technology | Equity | 0.05% |
+| STATE DEVELOPMENT LOAN 37672 TN 15JL34 7.39 FV RS 100 | Unspecified | State Development Loan | 0.05% |
+| STATE DEVELOPMENT LOAN 33844 GUJ 17JN33 7.64 FV RS 100 | Industrials | State Development Loan | 0.05% |
+| GRASIM INDUSTRIES LIMITED SR II 7.63 LOA 01DC27 FVRS10LAC | Materials | Bonds | 0.05% |
+| NATIONAL BANK FOR AGRICULTURE AND RURAL DEVELOPMENT SR 24C 7.83 BD 30DC26 FVRS1LAC | Financial | Bonds/NCDs | 0.05% |
+| 7.90% LIC Housing Finance Ltd NCD 23-06-2027 | Financial | Bonds | 0.05% |
+| HDFC BANK LIMITED SR US003 7.70 NCD 16MY28 FVRS1LAC | Financial | Debenture | 0.05% |
+| GRASIM INDUSTRIES LIMITED SR I 7.50 LOA 10JU27 FVRS10LAC | Materials | Debenture | 0.05% |
+| Union Bank of India SR-XX Additional Tier 1 Bo 9.50 | Financial | Additional Tier 1 Bond | 0.05% |
+| SMALL INDUSTRIES DEVELOPMENT BANK OF INDIA SR III 7.55 BD 22SP26 FVRS1LAC | Financial | Non Convertible Debenture | 0.05% |
+| Power Grid Corporation of India Ltd Debenture 7.30 19/06/2027 | Energy & Utilities | Debenture | 0.05% |
+| INDIAN RAILWAY FINANCE CORPORATION LIMITED SR 172B 7.45 BD 13OT28 FVRS1LAC | Financial | Bonds/NCDs | 0.05% |
+| STATE DEVELOPMENT LOAN 37119 BH 25FB41 7.72 FV RS 100 | Unspecified | State Development Loan | 0.05% |
+| INDIAN OIL CORPORATION LIMITED SR XXVII 7.25 NCD 06JN30 FVRS1LAC | Energy & Utilities | Non Convertible Debenture | 0.05% |
+| 7.48 SIDBI 24.05.2029 | Financial | Bonds | 0.05% |
+| HDFC BANK LIMITED SR US002 7.80 NCD 03MY33 FVRS1LAC | Financial | Debenture | 0.05% |
+| SMALL INDUSTRIES DEVELOPMENT BANK OF INDIA SR III 7.34 BD 26FB29 FVRS1LAC | Financial | Bonds | 0.05% |
+| BHARTI TELECOM LIMITED SR XXX 7.85 NCD 20MR29 FVRS1LAC | Technology | Non Convertible Debenture | 0.05% |
+| HOUSING AND URBAN DEVELOPMENT CORPORATION LIMITED SR B 6.90 NCD 06MY30 FVRS1LAC | Financial | Debenture | 0.05% |
+| NATIONAL HOUSING BANK 6.80 BD 02AP32 FVRS1LAC | Financial | Bonds | 0.05% |
+| STATE DEVELOPMENT LOAN 36634 MH 23OT36 7.2 FV RS 100 | Unspecified | State Development Loan | 0.05% |
+| Fortis Healthcare Ltd | Healthcare | Equity | 0.04% |
+| Ceigall India Ltd. | Industrials | Equity | 0.04% |
+| STATE DEVELOPMENT LOAN 33876 GUJ 24JN33 7.63 FV RS 100 | Industrials | State Development Loan | 0.04% |
+| ICICI Prudential Asset Management Company Ltd. | Financial | Equity | 0.04% |
+| STATE DEVELOPMENT LOAN 37125 HAR 25FB41 7.67 FV RS 100 | Unspecified | State Development Loan | 0.04% |
+| Devyani International Ltd | Consumer Discretionary | Equity | 0.04% |
+| STATE DEVELOPMENT LOAN 33845 GUJ 17JN34 7.64 FV RS 100 | Industrials | State Development Loan | 0.04% |
+| Colgate-Palmolive (India) Ltd | Consumer Staples | Equity | 0.04% |
+| NATIONAL BANK FOR AGRICULTURE AND RURAL DEVELOPMENT SR 25A 7.70 BD 30SP27 FVRS1LAC | Financial | Debenture | 0.03% |
+| LIC HOUSING FINANCE LTD TR 454 7.58 NCD 23MR35 FVRS1LAC | Financial | Non Convertible Debenture | 0.03% |
+| RHI Magnesita India Ltd | Materials | Equity | 0.03% |
+| STATE DEVELOPMENT LOAN 37493 GUJ 10JU37 7.63 FV RS 100 | Industrials | State Development Loan | 0.03% |
+| RURAL ELECTRIFICATION CORPORATION LIMITED SR GOI-IV 8.70 BD 28SP28 FVRS10LAC | Financial | Zero Coupon Bonds | 0.03% |
+| SBI Funds Management Ltd | Financial | Equity | 0.03% |
+| GOVERNMENT OF INDIA 35031 GOI 07OT34 6.79 FV RS 100 | Entities | GOI Securities | 0.03% |
+| HDFC BANK LIMITED SR W010 7.40 NCD 28FB30 FVRS10LAC | Financial | Fixed Deposits | 0.03% |
+| Uttar Pradesh State Government Securities (20/03/2036) | Unspecified | State Development Loan | 0.03% |
+| Adani Ports and Special Economic Zone Ltd | Industrials | Equity | 0.03% |
+| Ramco Systems Ltd | Technology | Equity | 0.03% |
+| Medi Assist Healthcare Services Ltd. | Industrials | Equity | 0.03% |
+| STATE DEVELOPMENT LOAN 33877 GUJ 24JN34 7.63 FV RS 100 | Industrials | State Development Loan | 0.03% |
+| GOVERNMENT OF INDIA 33002 GOI 12JU63 7.25 FV RS 100 | Entities | GOI Securities | 0.03% |
+| HDFC BANK LIMITED SR Z007 7.10 NCD 12NV31 FVRS10LAC | Financial | Debenture | 0.03% |
+| Coromandel International Ltd | Materials | Equity | 0.02% |
+| Chambal Fertilisers & Chemicals Ltd | Materials | Equity | 0.02% |
+| 7.75% IRFC NCD RED 15-04-2033** | Financial | Debenture | 0.02% |
+| AXIS FINANCE LIMITED SR 03 RR NCD 11JN29 FVRS1LAC | Financial | Non Convertible Debenture | 0.02% |
+| NATIONAL BANK FOR AGRICULTURE AND RURAL DEVELOPMENT SR 25B 7.64 BD 06DC29 FVRS1LAC | Financial | Bonds | 0.02% |
+| GOI Sec 7.23 15/04/2039 | Entities | GOI Securities | 0.02% |
+| SANSAR TRUST JULY 2023 II SERIES A1 PTC 07AUG23 | Financial | Securitised Debt | 0.02% |
+| TruAlt Bioenergy Ltd. | Energy & Utilities | Equity | 0.02% |
+| Aditya Infotech Ltd. | Technology | Equity | 0.02% |
+| STATE DEVELOPMENT LOAN 34136 MH 22MR39 7.45 FV RS 100 | Unspecified | State Development Loan | 0.02% |
+| L&T Finance Holdings Ltd | Financial | Equity | 0.02% |
+| BEML Land Assets Ltd. | Real Estate | Equity | 0.02% |
+| Fusion Micro Finance Ltd | Financial | Equity | 0.02% |
+| Gsec C-STRIPS Mat 17-June-2028 | Entities | GOI Securities | 0.02% |
+| Bajaj Housing Finance Ltd. | Financial | Equity | 0.02% |
+| Varun Beverages Ltd | Consumer Staples | Equity | 0.01% |
+| Emcure Pharmaceuticals Ltd. | Healthcare | Equity | 0.01% |
+| Paradeep Phosphates Ltd | Materials | Equity | 0.01% |
+| Shiprocket Ltd. | Technology | Equity | 0.01% |
+| Tata Chemicals Ltd | Materials | Equity | 0.01% |
+| Union Bank of India | Financial | Equity | 0.01% |
+| Rites Ltd | Industrials | Equity | 0.01% |
+| Star Health & Allied Insurance Co. Ltd | Financial | Equity | 0.01% |
+| Campus Activewear Ltd | Consumer Discretionary | Equity | 0.01% |
+| UPL Ltd | Materials | Equity | 0.01% |
+| STATE DEVELOPMENT LOAN 33896 MH 31JN35 7.63 FV RS 100 | Unspecified | State Development Loan | 0.01% |
+| JNK India Ltd. | Industrials | Equity | 0.01% |
+| Tamil Nadu Newsprint & Papers Ltd | Materials | Equity | 0.01% |
+| Aster DM Healthcare Ltd | Healthcare | Equity | 0.01% |
+| Raajmarg Infra Investment Trust | Industrials | Infrastructure Investment Trust | 0.01% |
+| Kwality Walls India Ltd | Consumer Staples | Equity | 0.00% |
+| CENTRAL GOVERNMENT LOAN 30951 GOI 15DC51 6.99 FV RS 100 | Entities | GOI Securities | 0.00% |
+| GOI Sec 7.17 17/04/2030 | Entities | GOI Securities | 0.00% |
+| CENTRAL GOVERNMENT LOAN 29633 GOI 17DC50 6.67 FV RS 100 | Entities | GOI Securities | 0.00% |
+| STATE DEVELOPMENT LOAN 34101 CHT 20MR34 7.47 FV RS 100 | Unspecified | State Development Loan | 0.00% |
+| S Chand And Co Ltd | Consumer Discretionary | Equity | 0.00% |
+| CMR Green Technologies Ltd. | Materials | Equity | 0.00% |
+| GOVERNMENT OF INDIA 32584 GOI 06FB33 7.26 FV RS 100 | Entities | GOI Securities | 0.00% |
+| Tata Consumer Products Ltd | Consumer Staples | Equity | 0.00% |
+| Indus Towers Ltd | Technology | Equity | 0.00% |
+| MEP Infrastructure Developers Ltd | Industrials | Equity | 0.00% |
+| AGS Transact Technologies Ltd | Industrials | Equity | 0.00% |
+See All
+
+### Minimum investments
+Min. for 1st investment
+₹100
+Min. for 2nd investment
+₹100
+Min. for SIP
+₹100
+
+## Understand terms
+
+##### Annualised returns
+Average of the yearly returns of a mutual fund over a given period.
+
+##### Absolute returns
+The total return of a mutual fund over a given period.
+Returns and rankings
+
+### Returns and rankings
+Annualised returns
+Absolute returns
+| Name | 3Y | 5Y | 10Y | All |
+| Fund returns | +11.0% | +14.1% | +13.4% | +14.3% |
+| Category average ( Hybrid Dynamic Asset Allocation ) | +9.4% | +8.9% | +10.1% | +10.9% |
+| Rank ( Hybrid Dynamic Asset Allocation ) | 7 | 1 | -- | -- |
+Understand terms
+
+## Understand terms
+
+##### Expense ratio
+A fee payable to a mutual fund house for managing your mutual fund investments.     It is the total percentage of a company's fund assets used for administrative, management, advertising, and other expenses.
+
+##### Tax
+A percentage of your capital gains payable to the government upon exiting your mutual fund investments.     Taxation is categorized as long-term capital gains (LTCG) and short-term capital gains (STCG) depending on your holding period and the type of fund.
+
+##### Exit load
+A fee payable to a mutual fund house for exiting a fund (fully or partially) before the completion of a specified period from the date of investment.
+
+##### Stamp duty
+A form of tax payable for the purchase or sale of an asset or security.
+Exit Load
+
+### Exit Load
+01 Jun 2018
+Exit Load for units in excess of 15% of the investment,1% will be charged for redemption within 1 year.
+08 May 2015
+Exit load of 1% if redeemed within 1 year
+18 Dec 2014
+Exit load of 2% if redeemed within 12 months, 1% if redeemed after 12 months but within 24 months and 0.50% if redeemed after 24 months but within 36 months
+01 Jan 2013
+Exit load of 1% if redeemed within 1 year
+Exit load, stamp duty and tax
+
+### Exit load, stamp duty and tax
+
+#### Exit load
+Exit Load for units in excess of 15% of the investment,1% will be charged for redemption within 1 year.
+
+#### Stamp duty on investment: 0.005% (from July 1st, 2020)
+from July 1st 2020
+
+#### Tax implication
+If you redeem within one year, returns are taxed at 20%. If you redeem after one year, returns exceeding Rs 1.25 lakh in a financial year are taxed at 12.5%.
+Check past data
+
+### Compare similar funds
+|  | Name | 1Y | 3Y | Fund Size(Cr) |
+|  | Aditya Birla Sun Life Balanced Advantage Fund Direct Growth | +6.49% | +11.77% | 10,125.45 |
+|  | HDFC Balanced Advantage Fund Direct Growth | -0.70% | +11.02% | 1,07,295.79 |
+|  | ICICI Prudential Balanced Advantage Direct Growth | +3.65% | +10.97% | 75,399.17 |
+|  | Nippon India Balanced Advantage Fund Direct Growth | +2.53% | +10.49% | 9,917.50 |
+|  | DSP Dynamic Asset Allocation Fund Direct Growth | +3.38% | +10.34% | 3,821.11 |
+| Compare |
+
+### Fund management
+
+### AB Anil Bamboli Jul 2022 - Present View details
+AB
+Anil Bamboli
+Jul 2022 - Present
+View details
+Education
+Mr. Bamboli is a CFA from Association for Investment Management and Research, U.S.A, Masters in Management Studies (Finance) and a Graduate in Cost and Works Accountant from ICWAI.
+Experience
+Prior to joining HDFC AMC he has worked with SBI Fund Management for 11 years.
+Also manages these schemes
+HDFC Floating Interest Rates Fund Direct Plan Growth
+HDFC Gilt Fund Direct Growth
+HDFC Balanced Advantage Fund Direct Growth
+HDFC Dynamic Term Fund Direct Plan Growth
+HDFC Medium Term Fund Direct Growth
+HDFC Equity Savings Direct Plan Growth
+HDFC Multi Asset Allocation Fund Direct Growth
+HDFC Short Term Fund Direct Plan Growth
+HDFC Banking and PSU Debt Fund Direct Growth
+HDFC Arbitrage Fund Direct Growth
+HDFC Income Plus Arbitrage Active FoF Direct Growth
+HDFC Ultra Short Term Fund Direct Growth
+HDFC Multi Asset Active FoF Direct Growth
+HDFC Children's Fund Direct Plan
+
+### AA Arun Agarwal Oct 2022 - Present View details
+AA
+Arun Agarwal
+Oct 2022 - Present
+View details
+Education
+Mr. Agarwal is a B.Com. and Chartered Accountant
+Experience
+Prior to joining HDFC Asset Management Company Limited, he has worked with SBI Funds Management Pvt. Ltd., ICICI Bank Limited, UTI Asset Management Pvt. Ltd.
+Also manages these schemes
+HDFC Gold ETF Fund of Fund Direct Plan Growth
+HDFC Balanced Advantage Fund Direct Growth
+HDFC NIFTY 50 Index Fund Direct Growth
+HDFC BSE Sensex Index Fund Direct Growth
+HDFC Equity Savings Direct Plan Growth
+HDFC Multi Asset Allocation Fund Direct Growth
+HDFC Arbitrage Fund Direct Growth
+HDFC Retirement Fund Equity Plan Direct Growth
+HDFC Retirement Fund Hybrid Equity Plan Direct Growth
+HDFC Retirement Fund Hybrid Debt Plan Direct Growth
+HDFC NIFTY 50 ETF IDCW
+HDFC NIFTY50 Equal Weight Index Fund Direct Growth
+HDFC Developed World Overseas Equity Passive FoF Direct Growth
+HDFC NIFTY Next 50 Index Fund Direct Growth
+HDFC NIFTY 100 Index Fund Direct Growth
+HDFC NIFTY 100 Equal Weight Index Fund Direct Growth
+HDFC Silver ETF FoF Direct Growth
+HDFC NIFTY Midcap 150 Index Fund Direct Growth
+HDFC Nifty Smallcap 250 Index Fund Direct Growth
+HDFC BSE 500 Index Fund Direct Growth
+HDFC BSE Sensex ETF
+HDFC NIFTY200 Momentum 30 Index Fund Direct Growth
+HDFC NIFTY Realty Index Fund Direct Growth
+HDFC NIFTY100 Low Volatility 30 Index Fund Direct Growth
+HDFC Nifty500 Multicap 50:25:25 Index Fund Direct Growth
+HDFC Nifty LargeMidcap 250 Index Fund Direct Growth
+HDFC Nifty India Digital Index Fund Direct Growth
+HDFC Nifty100 Quality 30 Index Fund Direct Growth
+HDFC Nifty Top 20 Equal Weight Index Fund Direct Growth
+HDFC BSE India Sector Leaders Index Fund Direct Growth
+HDFC Nifty India Consumption Index Fund Direct Growth
+HDFC Nifty Auto Index Fund Direct Growth
+HDFC Nifty Metal ETF FoF Direct Growth
+HDFC BSE REITS and Commercial Real Estate Index Fund Direct Growth
+
+### DM Dhruv Muchhal Jun 2023 - Present View details
+DM
+Dhruv Muchhal
+Jun 2023 - Present
+View details
+Education
+Mr. Dhruv has done B.Com, CA and CFA
+Experience
+Prior to joining HDFC MF,he has worked with Motilal Oswal Financial Services Ltd., Goldman Sachs, CRISIL Global Research & Analytics and Deloitte Haskins & Sells
+Also manages these schemes
+HDFC Flexi Cap Direct Plan Growth
+HDFC Value Fund Direct Plan Growth
+HDFC Ultra Short to Short Term Fund Direct Growth
+HDFC Focused Fund Direct Growth
+HDFC Floating Interest Rates Fund Direct Plan Growth
+HDFC Balanced Advantage Fund Direct Growth
+HDFC Dynamic Term Fund Direct Plan Growth
+HDFC Medium Term Fund Direct Growth
+HDFC Medium to Long Term Fund Direct Growth
+HDFC Infrastructure Fund Direct Growth
+HDFC Corporate Bond Fund Direct Plan Growth
+HDFC Conservative Hybrid Fund Direct Growth
+HDFC Mid Cap Fund Direct Growth
+HDFC Equity Savings Direct Plan Growth
+HDFC Multi Asset Allocation Fund Direct Growth
+HDFC Aggressive Hybrid Fund Direct Plan Growth
+HDFC Short Term Fund Direct Plan Growth
+HDFC ELSS Tax Saver Fund Direct Plan Growth
+HDFC Large Cap Fund Direct Growth
+HDFC Credit Risk Fund Direct Growth
+HDFC Banking and PSU Debt Fund Direct Growth
+HDFC Arbitrage Fund Direct Growth
+HDFC Large & Mid Cap Fund Direct Growth
+HDFC Small Cap Fund Direct Growth
+HDFC Ultra Short Term Fund Direct Growth
+HDFC Liquid Direct Plan Growth
+HDFC Overnight Fund Direct Growth
+HDFC Money Market Fund Direct Growth
+HDFC Housing Opportunities Fund Direct Growth
+HDFC Banking & Financial Services Fund Direct Growth
+HDFC Multi Cap Fund Direct Growth
+HDFC Business Cycle Fund Direct Growth
+HDFC Long Term Fund Direct Growth
+HDFC MNC Fund Direct Growth
+HDFC Defence Fund Direct Growth
+HDFC Consumption Fund Direct Growth
+HDFC Transportation and Logistics Fund Direct Growth
+HDFC Technology Fund Direct Growth
+HDFC Pharma And Healthcare Fund Direct Growth
+HDFC Manufacturing Fund Direct Growth
+HDFC Children's Fund Direct Plan
+HDFC Innovation Fund Direct Growth
+
+### NM Nandita Menezes Mar 2025 - Present View details
+NM
+Nandita Menezes
+Mar 2025 - Present
+View details
+Education
+CA (ICAI, INDIA), B.Com (University of Mumbai)
+Experience
+Prior to joining HDFC AMC, she was associated with S.V. Ghatalia & Associates LLP.
+Also manages these schemes
+HDFC Gold ETF Fund of Fund Direct Plan Growth
+HDFC Balanced Advantage Fund Direct Growth
+HDFC NIFTY 50 Index Fund Direct Growth
+HDFC BSE Sensex Index Fund Direct Growth
+HDFC Equity Savings Direct Plan Growth
+HDFC Multi Asset Allocation Fund Direct Growth
+HDFC Arbitrage Fund Direct Growth
+HDFC Retirement Fund Equity Plan Direct Growth
+HDFC Retirement Fund Hybrid Equity Plan Direct Growth
+HDFC Retirement Fund Hybrid Debt Plan Direct Growth
+HDFC NIFTY50 Equal Weight Index Fund Direct Growth
+HDFC Developed World Overseas Equity Passive FoF Direct Growth
+HDFC NIFTY Next 50 Index Fund Direct Growth
+HDFC NIFTY 100 Index Fund Direct Growth
+HDFC NIFTY 100 Equal Weight Index Fund Direct Growth
+HDFC Silver ETF FoF Direct Growth
+HDFC NIFTY Midcap 150 Index Fund Direct Growth
+HDFC Nifty Smallcap 250 Index Fund Direct Growth
+HDFC BSE 500 Index Fund Direct Growth
+HDFC NIFTY200 Momentum 30 Index Fund Direct Growth
+HDFC NIFTY Realty Index Fund Direct Growth
+HDFC NIFTY100 Low Volatility 30 Index Fund Direct Growth
+HDFC Nifty500 Multicap 50:25:25 Index Fund Direct Growth
+HDFC Nifty LargeMidcap 250 Index Fund Direct Growth
+HDFC Nifty India Digital Index Fund Direct Growth
+HDFC Nifty100 Quality 30 Index Fund Direct Growth
+HDFC Nifty Top 20 Equal Weight Index Fund Direct Growth
+HDFC BSE India Sector Leaders Index Fund Direct Growth
+HDFC Nifty India Consumption Index Fund Direct Growth
+HDFC Gold Silver Passive FoF Direct Growth
+HDFC Nifty Auto Index Fund Direct Growth
+HDFC Nifty Metal ETF FoF Direct Growth
+HDFC BSE REITS and Commercial Real Estate Index Fund Direct Growth
+
+### GA Gopal Agrawal Jul 2022 - Present View details
+GA
+Gopal Agrawal
+Jul 2022 - Present
+View details
+Education
+Mr.Agrawal is a  B.E and MBM.
+Experience
+Prior to joining HDFC Mutual Fund he has worked with DSP Mutual Fund, Tata AMC, Mirae Asset Mutual Fund ,SBI Mutual Fund, Kotak Securities, HDFC Securities, IDBI Capital, UTI Securities and IPCL.
+Also manages these schemes
+HDFC Balanced Advantage Fund Direct Growth
+HDFC Large & Mid Cap Fund Direct Growth
+HDFC Retirement Fund Equity Plan Direct Growth
+HDFC Retirement Fund Hybrid Equity Plan Direct Growth
+HDFC Retirement Fund Hybrid Debt Plan Direct Growth
+HDFC Dividend Yield Fund Direct Growth
+
+### ID Ihab Dalwai Sep 2026 - Present View details
+ID
+Ihab Dalwai
+Sep 2026 - Present
+View details
+Education
+Mr. Dalwai is a Chartered Accountant.
+Experience
+Prior to joining the HDFC AMC, he was associated with ICICI Prudential AMC.
+Also manages these schemes
+HDFC Balanced Advantage Fund Direct Growth
+HDFC Multi Asset Allocation Fund Direct Growth
+HDFC Aggressive Hybrid Fund Direct Plan Growth
+HDFC Multi Asset Active FoF Direct Growth
+HDFC Diversified Equity All Cap Active FoF Direct Growth
+About HDFC Balanced Advantage Fund Direct Growth
+
+### About HDFC Balanced Advantage Fund Direct Growth
+
+### About HDFC Balanced Advantage Fund Direct Growth
+HDFC Balanced Advantage Fund Direct Growth is a Hybrid Mutual Fund Scheme launched by HDFC Mutual Fund. This scheme was made available to investors on 10 Dec 1999. Anil Bamboli is the Current Fund Manager of HDFC Balanced Advantage Fund Direct Growth fund. The fund currently has an Asset Under Management(AUM) of ₹9,86,237 Cr and the Latest NAV as of 25 Sep 2026 is ₹557.73.
+The HDFC Balanced Advantage Fund Direct Growth is rated Very High risk. Minimum SIP Investment is set to ₹100. Minimum Lumpsum Investment is ₹100. Exit Load for units in excess of 15% of the investment,1% will be charged for redemption within 1 year. ;
+
+#### Investment Objective
+The Scheme seeks to provide long term capital appreciation / income from a dynamic mix of equity and debt investments.
+Fund benchmark NIFTY 50 Hybrid Composite Debt 50:50 Index
+Scheme Information Document(SID)
+Fund house
+
+### Fund house
+
+### Fund house
+HDFC Mutual Fund
+Rank (total assets) #2 in India
+Total AUM ₹9,86,236.84 Cr
+Date of Incorporation 10 Dec 1999
+Phone 022 – 66316333
+E-mail [email protected]
+Website http://www.hdfcfund.com
+Launch Date 10 Dec 1999
+Address "HDFC House", 2nd Floor, H. T. Parekh Marg, 165-166, BackbayReclamation, Churchgate Mumbai 400020
+Custodian HDFC Bank
+Registrar & Transfer Agent Cams
+Email [email protected]
+Website www.camsonline.com
+Address 7th Floor, Tower II, Rayala Towers, 158, Anna Salai,

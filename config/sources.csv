@@ -1,0 +1,6 @@
+scheme_id,scheme_name,category,plan,brief_label,brief_line,url,source_tier,brief_reference
+HDFC_LARGE_CAP,HDFC Large Cap Fund,Equity - Large Cap,Direct Growth,Large Cap,9,https://groww.in/mutual-funds/hdfc-large-cap-fund-direct-growth,broker,problemstatement.txt line 9
+HDFC_FLEXI_CAP,HDFC Flexi Cap Fund,Equity - Flexi Cap,Direct Growth,Flexi Cap,10,https://groww.in/mutual-funds/hdfc-equity-fund-direct-growth,broker,problemstatement.txt line 10
+HDFC_ELSS,HDFC ELSS Tax Saver Fund,Equity - Tax Saving (ELSS),Direct Growth,ELSS,11,https://groww.in/mutual-funds/hdfc-elss-tax-saver-fund-direct-plan-growth,broker,problemstatement.txt line 11
+HDFC_SMALL_CAP,HDFC Small Cap Fund,Equity - Small Cap,Direct Growth,Small Cap,12,https://groww.in/mutual-funds/hdfc-small-cap-fund-direct-growth,broker,problemstatement.txt line 12
+HDFC_BAL_ADV,HDFC Balanced Advantage Fund,Hybrid - Equity Oriented,Direct Growth,"Balanced Advantage (Hybrid)",13,https://groww.in/mutual-funds/hdfc-balanced-advantage-fund-direct-growth,broker,problemstatement.txt line 13

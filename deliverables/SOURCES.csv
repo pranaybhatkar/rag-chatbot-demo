@@ -1,0 +1,6 @@
+tier,scheme_id,scheme_name,category,plan,brief_label,url
+broker,HDFC_LARGE_CAP,HDFC Large Cap Fund,Equity - Large Cap,Direct Growth,Large Cap,https://groww.in/mutual-funds/hdfc-large-cap-fund-direct-growth
+broker,HDFC_FLEXI_CAP,HDFC Flexi Cap Fund,Equity - Flexi Cap,Direct Growth,Flexi Cap,https://groww.in/mutual-funds/hdfc-equity-fund-direct-growth
+broker,HDFC_ELSS,HDFC ELSS Tax Saver Fund,Equity - Tax Saving (ELSS),Direct Growth,ELSS,https://groww.in/mutual-funds/hdfc-elss-tax-saver-fund-direct-plan-growth
+broker,HDFC_SMALL_CAP,HDFC Small Cap Fund,Equity - Small Cap,Direct Growth,Small Cap,https://groww.in/mutual-funds/hdfc-small-cap-fund-direct-growth
+broker,HDFC_BAL_ADV,HDFC Balanced Advantage Fund,Hybrid - Equity Oriented,Direct Growth,Balanced Advantage (Hybrid),https://groww.in/mutual-funds/hdfc-balanced-advantage-fund-direct-growth

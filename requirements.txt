@@ -1,0 +1,122 @@
+# =============================================================================
+# Runtime dependencies
+#
+#   .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+#
+# Versions are pinned to what the 400-test suite and the bit-identical rebuild
+# assertion were actually verified against, not to what was first written down.
+# Five of them have drifted since this file was last edited (see DRIFT below) and
+# the pins here were corrected to the installed, tested state.
+#
+# This file lists what the project imports DIRECTLY, plus torch. Torch is not
+# imported by name anywhere in src/ - it is a hard requirement of
+# sentence-transformers, and it is pinned deliberately rather than left to
+# resolve transitively, because which build you get decides whether a deploy
+# pulls 374 MB or 3 GB. See the torch note below.
+# =============================================================================
+
+# The CPU wheel index. Without this line, `torch==2.14.0` resolves from PyPI,
+# which is the CUDA build and drags in ~3 GB of nvidia-* wheels for a service
+# that never touches a GPU. Installed here: 2.14.0+cpu, 374 MB, zero nvidia
+# packages.
+#
+# The `+cpu` local version in the torch pin below is what makes this
+# deterministic: it exists only on this index, so pip cannot silently resolve
+# the CUDA build instead. Tradeoff: `+cpu` is not published for macOS/arm64. On
+# an Apple Silicon machine, install torch from PyPI and drop the `+cpu` suffix;
+# the embedding output is identical, and the bit-identity assertion is about the
+# model weights, not the build.
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+# --- Phase 1: fetch and parse the scheme pages ---------------------------------
+requests==2.34.2
+beautifulsoup4==4.15.0
+# lxml is not imported by name; it is the parser passed to BeautifulSoup() in
+# fetch_page_text.py, so it is a real runtime requirement and not decoration.
+lxml==6.1.3
+
+# --- Phase 2: chunking ---------------------------------------------------------
+# The real embedding-model tokenizer, for counting word-pieces. `tokenizers`
+# alone is enough: it loads tokenizer.json (30522-word vocab) and needs neither
+# torch nor transformers. Word-pieces must be counted with the model's own
+# vocabulary, never estimated from characters or words, or chunks overflow the
+# 256 silent-truncation limit unnoticed.
+tokenizers==0.23.2
+
+# --- Phase 3: embedding and the persistent index --------------------------------
+# Pinned directly rather than resolved transitively. sentence-transformers
+# accepts any torch>=1.11, so left alone pip would take whatever was newest,
+# and a torch change is a plausible way to move the 377x384 vectors that Phase
+# 5's tuned thresholds were calibrated against.
+torch==2.14.0+cpu
+sentence-transformers==6.1.0
+chromadb==1.5.9
+numpy==2.4.6
+
+# --- Phase 4: credentials -------------------------------------------------------
+# .env is read and validated at runtime and is gitignored; .env.example is the
+# committed template.
+python-dotenv==1.2.3
+
+# --- Phase 5: retrieval, generation and the UI ----------------------------------
+streamlit==1.42.2
+
+# =============================================================================
+# protobuf - pinned by BOTH sides of a genuine constraint conflict
+# =============================================================================
+#   streamlit 1.42.2          requires protobuf >=3.20,<6
+#   googleapis-common-protos 1.75.4 requires protobuf >=6.33.5,<8, and ships
+#                              gencode 6.33.5, which a 5.x runtime refuses
+#                              to load
+#
+# Installing streamlit alone made pip choose protobuf 5.29.6 and leave
+# googleapis-common-protos 1.75.4 in place, so `import chromadb` died with
+# "Runtime version cannot be older than the linked gencode version" - the single
+# most important import in the project. Downgrading googleapis-common-protos is
+# the resolution that satisfies both declared ranges: `pip check` is clean and
+# both imports work. Do not "simplify" this by upgrading either one alone.
+protobuf==5.29.6
+googleapis-common-protos==1.70.0
+
+# =============================================================================
+# The Groq API client
+# =============================================================================
+# There is deliberately no `groq` SDK dependency. The engine POSTs to
+#   https://api.groq.com/openai/v1/chat/completions
+# with `requests` (src/retrieval_engine.py, GROQ_URL), because the gpt-oss
+# family needs `reasoning_effort` alongside `temperature` and returns its answer
+# inside harmony channel tags. Going through the raw endpoint keeps that
+# handling visible in this repo instead of inside a vendor SDK, and it means one
+# HTTP client (`requests`, pinned in Phase 1) serves both the crawler and the
+# generator.
+#
+# Adding `groq` to this file would install an SDK that nothing imports - a
+# dependency that breaks on its own release schedule and buys nothing. If the
+# SDK is ever adopted, delete this paragraph rather than leaving both.
+
+# =============================================================================
+# Development and test only
+# =============================================================================
+# Not needed to serve the app. Split out so a production install can be
+# `pip install --no-deps -r requirements.txt` plus these, or simply not have
+# them.
+pytest==8.3.5
+
+# =============================================================================
+# DRIFT - corrected 2026-09-27
+# =============================================================================
+# These were pinned to older versions and the venv had moved past them. The pins
+# now match the installed, tested state:
+#
+#   beautifulsoup4   4.12.3 -> 4.15.0
+#   lxml             5.3.0  -> 6.1.3
+#   requests         2.32.3 -> 2.34.2
+#   tokenizers       0.21.0 -> 0.23.2
+#   torch            2.6.0  -> 2.14.0
+#
+# torch is the one that mattered. 2.6.0 -> 2.14.0 is a two-year jump, and the
+# cold-start rebuild asserts its output is bit-for-bit identical to
+# data/processed/vectors.npy. A fresh clone installing the old pin would have
+# been running that assertion - and Phase 5's tuned thresholds - against a torch
+# this project never tested. Left uncorrected, the file would have described an
+# environment that no longer exists.

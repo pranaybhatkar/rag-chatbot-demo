@@ -1,0 +1,123 @@
+# =============================================================================
+# Secrets - never commit
+# =============================================================================
+# .env holds a live GROQ_API_KEY. It was pasted in plaintext during development
+# and must be rotated before any deploy; overwriting the file is the whole fix.
+.env
+.env.*
+!.env.example
+
+# Streamlit's per-deploy credential file is the same hazard under another name.
+.streamlit/secrets.toml
+
+# =============================================================================
+# Generated search index
+# =============================================================================
+# Large, and fully reproducible: `vector_store.ensure_index()` rebuilds it from
+# data/processed/chunks.jsonl plus the embedding model on first boot. A deploy
+# that ships source without it is the expected case, not a broken one, so the
+# folder is an artefact and not a deliverable.
+#
+# The live index lives at the repo root (retrieval_engine resolves ROOT /
+# "chroma_db"). Left unanchored rather than written `/chroma_db/` because the
+# broader form also catches a copy nested under a test fixture or a stray
+# clone, and there is no directory in this tree that a chroma_db is legitimate
+# in. The trailing slash restricts it to directories, so a file of that name
+# would still be tracked.
+chroma_db/
+data/index/
+
+# Same thing under a different name: a scratch index left behind while
+# debugging the cold-start rebuild. No source file references it, so nothing
+# reads it. The pattern is a glob rather than the bare name because the name
+# varies with whatever probe was being run.
+chroma_db_probe*/
+chroma_db-*/
+*_probe_db/
+
+# =============================================================================
+# Virtual environments
+# =============================================================================
+# 1.5 GB locally, and it must never be committed. The leading dot on .venv is
+# not assumed - `venv/` and `env/` are the other two spellings people create by
+# accident and then commit.
+.venv/
+venv/
+env/
+ENV/
+
+# =============================================================================
+# Python bytecode and caches
+# =============================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+.mypy_cache/
+.ruff_cache/
+.pytype/
+
+# =============================================================================
+# Packaging
+# =============================================================================
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# =============================================================================
+# Test, coverage and type artefacts
+# =============================================================================
+.pytest_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.tox/
+.nox/
+.hypothesis/
+.cache/
+
+# =============================================================================
+# Notebooks
+# =============================================================================
+.ipynb_checkpoints/
+
+# =============================================================================
+# Editors and operating systems
+# =============================================================================
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# OneDrive sync artefacts. This tree lives under OneDrive/Documents, and
+# OneDrive writes lock and conflict files that would otherwise show up as
+# untracked noise on every git status.
+~$*
+*.tmp
+*.lnk
+
+# =============================================================================
+# DELIBERATELY NOT IGNORED
+# =============================================================================
+# Listed because a broad rule would plausibly catch them, and each one is load
+# bearing. See implementation.md.
+#
+#   data/processed/chunks.jsonl   committed source of truth for the cold-start
+#                                 rebuild; if it is missing, ensure_index()
+#                                 cannot work and the app cannot answer
+#   data/processed/vectors.npy     the reference the bit-identical rebuild
+#   data/processed/ids.json        assertion is measured against
+#   data/manifest/run_log.jsonl    AC-11 is verified by READING this file, so
+#                                 it is evidence, not a log to be rotated
+#   data/chunks_preview.txt        a Phase 2 deliverable
+#   prompts/system_prompt.v1.txt   versioned artefact with a drift test
+#   config/sources.csv             scheme_id -> URL + tier
+#
+# In particular there is no `data/` rule and no `*.log` rule. A blanket `*.log`
+# is a common way to accidentally hide run_log.jsonl's sibling evidence.

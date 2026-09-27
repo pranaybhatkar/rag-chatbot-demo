@@ -1,0 +1,21 @@
+# Normalise line endings in the repository and check out LF on every platform.
+#
+# This is load-bearing rather than cosmetic. This machine has core.autocrlf=true
+# (the Windows default), so without this file a fresh Windows clone checks out
+# CRLF while a Linux/Render clone gets LF -- the same commit producing different
+# bytes on disk depending on who cloned it. The project asserts that a rebuilt
+# index is bit-identical to data/processed/vectors.npy, so "same bytes
+# everywhere" is a property the test suite depends on.
+* text=auto eol=lf
+
+# Binary artefacts. `text=auto` already detects these correctly, but naming them
+# states the intent and prevents a later edit from reclassifying them as text.
+data/processed/vectors.npy binary
+data/processed/*.bin binary
+chroma.sqlite3 binary
+
+# Shell and batch entry points keep native endings. A .bat checked out with LF
+# fails on Windows; .sh checked out with CRLF fails on Linux.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.sh  text eol=lf
