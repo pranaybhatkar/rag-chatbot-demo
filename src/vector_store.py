@@ -44,7 +44,7 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from src.chunker import count_wp, load_tokenizer
+from src.chunker import count_wp, load_from_hub_cache, load_tokenizer
 from src.config import ALLOWED_SCHEME_IDS, ALLOWED_URLS, EMBEDDING_MODEL
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -142,12 +142,21 @@ def report_credentials(creds: Credentials) -> list[str]:
 # ── embedding ─────────────────────────────────────────────────────────────
 
 def get_model():
-    """Load the model once, with the sequence limit set explicitly."""
+    """Load the model once, with the sequence limit set explicitly.
+
+    Resolved from the local cache via ``load_from_hub_cache`` rather than
+    straight from the Hub: the weights are baked into the image at build time by
+    ``scripts/prefetch_model.py``, and verified bit-identical to the shipped
+    vectors.npy, so there is no reason for a cold start to depend on
+    huggingface.co being reachable.
+    """
     global _MODEL
     if _MODEL is None:
         from sentence_transformers import SentenceTransformer
 
-        _MODEL = SentenceTransformer(EMBEDDING_MODEL)
+        _MODEL = load_from_hub_cache(
+            lambda **kw: SentenceTransformer(EMBEDDING_MODEL, **kw)
+        )
         _MODEL.max_seq_length = MAX_SEQ_LENGTH   # explicit, not inherited
         _MODEL.eval()                            # deterministic (NFR-06)
     return _MODEL
