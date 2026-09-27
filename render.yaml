@@ -1,0 +1,106 @@
+# Render Blueprint for the Mutual Fund FAQ RAG chatbot.
+#
+# This file is used only when the service is created as a Blueprint. If you
+# instead create a Web Service manually and attach the repo, Render ignores
+# this file entirely and the settings below must be typed into the dashboard
+# by hand. The commands are the same either way.
+#
+# ---------------------------------------------------------------------------
+# TIER - READ THIS FIRST
+# ---------------------------------------------------------------------------
+# Measured peak RSS for three full queries, on this machine:
+#
+#   interpreter only             13 MB
+#   after imports + index load   29 MB
+#   after the first query       569 MB peak / 432 MB live
+#   steady state across 3       569 MB peak / 399 MB live
+#
+# The 540 MB jump is torch loading all-MiniLM-L6-v2 on the first query. It is
+# a one-time load, not a leak.
+#
+# Render's free and starter tiers are 512 MB, which is BELOW that 569 MB peak.
+# On a 512 MB tier the service boots, serves the welcome screen, loads the
+# index, and is then OOM-killed the moment a real question is asked. That is
+# the worst shape of failure to debug: it looks alive right up until it isn't.
+#
+# So this uses `standard`. Verify the RAM on the plan you actually pick in the
+# dashboard before assuming a free-tier deploy will hold - and if you do try
+# free first to save the cost, watch the deploy logs for the restart, because
+# that is what an OOM looks like.
+services:
+  - type: web
+    name: rag-chatbot
+    runtime: python
+    plan: standard
+    region: singapore
+    pythonVersion: "3.11.9"
+
+    # Pre-downloads the embedding model into the image so the FIRST request
+    # does not have to fetch 87 MB. Without this, a cold start is slow enough
+    # to look like a hang to whoever opens the link first. Left fatal on
+    # purpose: a build-time failure is visible and fixable, whereas the same
+    # download failing silently at runtime is a timeout in production.
+    buildCommand: >-
+      pip install --no-cache-dir -r requirements.txt
+      && python scripts/prefetch_model.py
+
+    startCommand: >-
+      streamlit run src/app.py
+      --server.port $PORT
+      --server.address 0.0.0.0
+      --server.headless true
+      --browser.gatherUsageStats false
+
+    # Streamlit's own liveness endpoint. Without a health check Render treats
+    # the service as up before the index has finished building.
+    healthCheckPath: /_stcore/health
+
+    autoDeploy: true
+
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: "1"
+      # glibc allocates a per-thread malloc arena, and PyTorch spawns threads
+      # eagerly. On Linux that fragmentation reliably costs 100-200 MB of
+      # resident memory that is never returned. Capping arenas at 2 is the
+      # standard mitigation and is free at runtime.
+      #
+      # NOTE: this is unmeasurable on the Windows dev box, which is why the
+      # memory numbers in the comment above were taken separately from this
+      # setting. It can only help on Render.
+      - key: MALLOC_ARENA_MAX
+        value: "2"
+      # Same idea for the BLAS/OpenMP thread pools behind torch and numpy.
+      # Single-threaded is a little slower and considerably smaller, and query
+      # latency here is dominated by the network round-trip to Groq anyway.
+      - key: OMP_NUM_THREADS
+        value: "1"
+      # `src.app` does `from src import ...`, which needs the repo root on the
+      # path. Streamlit puts the *script's* directory (src/) on sys.path, not
+      # the working directory, so this is set explicitly rather than left to
+      # whatever the launch context happens to provide.
+      - key: PYTHONPATH
+        value: "."
+      # Bootstrap policy for ./chroma_db. The index is gitignored because it
+      # is reproducible, so on Render it does not exist and is rebuilt from
+      # data/processed/chunks.jsonl on first boot. `auto` means rebuild when
+      # the row count is short, leave a healthy index alone. A typo'd value
+      # raises rather than defaulting, so a mistake is loud.
+      - key: HDFC_RAG_INDEX_POLICY
+        value: "auto"
+
+      # GROQ_API_KEY is deliberately ABSENT and must not be added here.
+      #
+      # Everything in render.yaml is committed to a public repository. A
+      # secret placed in this file would be published on the next push, which
+      # is exactly how the Groq key and a GitHub PAT ended up sitting in
+      # plaintext in this tree earlier.
+      #
+      # Set it in the Render dashboard instead:
+      #   Dashboard -> your service -> Environment -> Add Environment Variable
+      #     key    GROQ_API_KEY
+      #     value  <your key>
+      #   or, from the shell:  render secret set GROQ_API_KEY <your key>
+      #
+      # Without it the app still starts and still answers, via the
+      # deterministic extractive path - degraded, but not broken.

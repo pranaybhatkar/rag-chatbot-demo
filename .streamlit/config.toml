@@ -1,0 +1,25 @@
+[server]
+# Headless is what makes this work on a host. Without it Streamlit tries to
+# open a browser, which is meaningless on a server and can block startup.
+headless = true
+# 0.0.0.0, not the 127.0.0.1 default. A server bound to loopback is reachable
+# only from inside the Render container, and the symptom is a deploy that
+# reports healthy while every external request times out.
+address = "0.0.0.0"
+# Port is deliberately OMITTED, not set to null. Streamlit parses this file
+# with a strict TOML decoder that requires `port` to be an int, and `port = null`
+# raises "invalid literal for int() with base 0" before the server binds - the
+# app dies at startup with a stack trace from toml/decoder.py and no server
+# log to explain it. Leaving the key out lets the start command's $PORT win,
+# which is the actual goal.
+
+[browser]
+# Streamlit phones home on startup. Harmless but it adds a startup delay and a
+# stray outbound request from a service that has no reason to talk to anyone.
+gatherUsageStats = false
+
+[runner]
+# The index build and the embedding model load both happen on the first query.
+# The default 60s script timeout is not obviously enough for a cold start, and
+# the failure mode is a bare "timeout" with no other clue.
+timeout = 240
