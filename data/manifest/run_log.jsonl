@@ -1500,3 +1500,7 @@
 {"ts": "2026-09-27T15:03:30.690237+00:00", "event": "answer", "query": "What is the expense ratio of HDFC Large Cap Fund?", "chunk_id": "HDFC_LARGE_CAP__scheme_page__0005", "r1_rung": "rung1_ok", "generator": "extractive", "lint_attempts": 0}
 {"ts": "2026-09-27T15:04:16.628718+00:00", "event": "allow.fact", "query": "What is the lock-in period of HDFC ELSS Tax Saver Fund?", "scheme_id": "HDFC_ELSS"}
 {"ts": "2026-09-27T15:05:01.554576+00:00", "event": "answer", "query": "What is the lock-in period of HDFC ELSS Tax Saver Fund?", "chunk_id": "HDFC_ELSS__scheme_page__0026", "r1_rung": "rung1_ok", "generator": "extractive", "lint_attempts": 0}
+{"ts": "2026-09-27T15:06:40.219379+00:00", "event": "allow.fact", "query": "What is the benchmark of HDFC Small Cap Fund?", "scheme_id": "HDFC_SMALL_CAP"}
+{"ts": "2026-09-27T15:06:41.678621+00:00", "event": "answer", "query": "What is the benchmark of HDFC Small Cap Fund?", "chunk_id": "HDFC_SMALL_CAP__scheme_page__0013", "r1_rung": "rung1_ok", "generator": "llm", "lint_attempts": 0}
+{"ts": "2026-09-27T15:07:37.051902+00:00", "event": "allow.fact", "query": "manager of large cap fund ?", "scheme_id": "HDFC_LARGE_CAP"}
+{"ts": "2026-09-27T15:08:18.613922+00:00", "event": "answer", "query": "manager of large cap fund ?", "chunk_id": "HDFC_LARGE_CAP__scheme_page__0018", "r1_rung": "rung1_ok", "generator": "extractive", "lint_attempts": 0}
