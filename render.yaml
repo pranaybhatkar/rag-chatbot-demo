@@ -18,20 +18,33 @@
 # The 540 MB jump is torch loading all-MiniLM-L6-v2 on the first query. It is
 # a one-time load, not a leak.
 #
-# Render's free and starter tiers are 512 MB, which is BELOW that 569 MB peak.
-# On a 512 MB tier the service boots, serves the welcome screen, loads the
-# index, and is then OOM-killed the moment a real question is asked. That is
-# the worst shape of failure to debug: it looks alive right up until it isn't.
+# Render's web-service plan ladder has no rung between 512 MB and 2 GB:
 #
-# So this uses `standard`. Verify the RAM on the plan you actually pick in the
-# dashboard before assuming a free-tier deploy will hold - and if you do try
-# free first to save the cost, watch the deploy logs for the restart, because
-# that is what an OOM looks like.
+#   free          0.1 CPU   512 MB
+#   0.5c-512mb    0.5 CPU   512 MB    (legacy name: starter)
+#   1c-2g         1   CPU   2   GB     (legacy name: standard)   <-- here
+#   2c-4g         2   CPU   4   GB     (legacy name: pro)
+#
+# Both 512 MB rungs sit BELOW the measured 569 MB peak, so neither free nor
+# starter can hold this app. On a 512 MB tier the service boots, serves the
+# welcome screen, loads the index, and is then OOM-killed the moment a real
+# question is asked - the worst shape of failure to debug, because it looks
+# alive right up until it isn't.
+#
+# `1c-2g` is therefore the smallest plan that works, not a comfort choice. The
+# legacy name `standard` still resolves to the same plan and is still accepted
+# in blueprints, but the ID form is used here so the 2 GB is unambiguous.
+#
+# If cost is the blocker, the alternative is not a smaller Render tier - there
+# isn't one that fits. It is dropping `sentence_transformers` in favour of a
+# hand-rolled transformers AutoModel, which measured 160 MB less resident.
+# That is a real code change and is currently UNTESTED as one; see the note in
+# src/vector_store.py before relying on it.
 services:
   - type: web
     name: rag-chatbot
     runtime: python
-    plan: standard
+    plan: 1c-2g
     region: singapore
     pythonVersion: "3.11.9"
 
