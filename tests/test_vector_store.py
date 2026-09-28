@@ -571,6 +571,128 @@ def test_vectors_npy_is_row_aligned_with_ids_json(chunks):
         assert np.abs(vectors[row] - fresh).max() < 2e-3, ids[row]
 
 
+# ── the index ships in the repo, so a deploy never rebuilds it ──────────────
+#
+# Community Cloud's filesystem is ephemeral: a recycled container starts from
+# the GitHub checkout again. If chroma_db/ is not committed, ensure_index()
+# re-embeds all 377 chunks on every cold boot - a ~90 MB model download and the
+# 942 MB peak, every time. These tests pin the fix, because the failure mode is
+# silent: a boot that rebuilds still answers correctly, it is just 34 seconds
+# and 274 MB slower, and nothing in the app reports it as wrong.
+
+def test_chroma_db_is_not_gitignored():
+    """The single line of config the whole optimisation rests on.
+
+    Asserted against the ignore rules rather than against git, so it also holds
+    in a tarball or a zip with no .git directory - which is closer to what a
+    deploy actually receives.
+    """
+    ignore = (ROOT / ".gitignore").read_text(encoding="utf-8")
+    patterns = [ln.strip() for ln in ignore.splitlines()
+                if ln.strip() and not ln.strip().startswith("#")]
+    assert "chroma_db/" not in patterns, (
+        "chroma_db/ is gitignored again, so every Community Cloud cold boot will "
+        "rebuild the index from scratch instead of using the committed one"
+    )
+
+
+def test_the_committed_index_is_present_and_complete(chunks):
+    """A committed index that is stale is worse than none: it would be trusted.
+
+    This is the check that catches the realistic mistake - committing the folder
+    once, then editing chunks.jsonl and forgetting that the shipped index no
+    longer matches the corpus. ensure_index() would find the count mismatch and
+    rebuild, so the app would still work, but slowly, and the repo would be
+    lying about what it deploys.
+    """
+    status = vs.index_status()
+    assert status["usable"], (
+        f"the committed index cannot serve queries: {status['problem']!r}. "
+        f"Rebuild and recommit it: python -m src.vector_store --recreate"
+    )
+    assert status["count"] == len(chunks), (
+        f"committed index holds {status['count']} vectors but chunks.jsonl holds "
+        f"{len(chunks)}"
+    )
+
+
+def test_committed_index_is_not_rebuilt_by_ensure_index(monkeypatch):
+    """ensure_index() must return early on a complete index, and must not load
+    the embedding model to discover that.
+
+    The model assertion is the point. A version that checked the index by
+    embedding something - even one vector, even a probe - would satisfy a naive
+    "did not rebuild" check while still paying the model load that costs 394 MB
+    and the cold download. So get_model is made to explode: if the boot path
+    touches it at all, this fails loudly instead of quietly costing a deploy
+    34 seconds.
+    """
+    def explode(*a, **k):
+        raise AssertionError(
+            "ensure_index() loaded the embedding model on a complete index; the "
+            "committed-index fast path must not need it"
+        )
+
+    monkeypatch.setattr(vs, "get_model", explode)
+    result = vs.ensure_index(verbose=False)
+
+    assert result["rebuilt"] is False, (
+        f"the committed index was rebuilt: {result['reason']!r}"
+    )
+    assert result["count"] == vs.index_status()["count"]
+
+
+def test_a_missing_index_still_rebuilds_rather_than_failing(tmp_path, monkeypatch):
+    """The fallback must survive the optimisation.
+
+    Shipping a prebuilt index is only safe because ensure_index() can still build
+    one. If the committed folder is unusable - an untested platform, a corrupt
+    checkout - the worst outcome has to be the old slow boot, never a broken
+    app. This exercises the fallback directly, on a path that starts empty, and
+    asserts the rebuild produces a usable collection.
+    """
+    scratch = tmp_path / "chroma_db"
+    monkeypatch.setenv(vs.INDEX_POLICY_ENV, "auto")
+    result = vs.ensure_index(scratch, verbose=False)
+
+    assert result["rebuilt"] is True
+    assert result["count"] == len(vs.load_chunks())
+    assert vs.index_status(scratch)["usable"], (
+        "the rebuild did not produce a usable index, so a deploy that cannot use "
+        "the committed folder would have no way to recover"
+    )
+
+
+def test_only_the_sqlite_header_ever_goes_dirty(chunks):
+    """Guard the one confusing thing about shipping a binary index in git.
+
+    Opening a Chroma index rewrites its SQLite header - the file change counter
+    and some page pointers - so chroma.sqlite3 shows as modified after any run,
+    even one that only reads. Measured at 10 bytes across 7 runs in 4 pages.
+    Harmless, but it trains people to ignore `git status`, and "ignore git
+    status" is how a genuinely stale index would ship unnoticed.
+
+    So the distinction is pinned: sqlite3 alone going dirty is header churn, and
+    a .bin file going dirty is a real rebuild that re-embedded the corpus. This
+    asserts the second never happens on a read, which is the half that matters.
+    """
+    if not vs.CHROMA_PATH.exists():
+        pytest.skip("run python -m src.vector_store first")
+    bins = sorted(vs.CHROMA_PATH.rglob("*.bin"))
+    assert bins, "no HNSW .bin files found; is this a Chroma index?"
+    before = {p: p.read_bytes() for p in bins}
+
+    coll = vs.get_client().get_collection(vs.COLLECTION_NAME)
+    assert coll.count() == len(chunks)
+
+    for p in bins:
+        assert p.read_bytes() == before[p], (
+            f"{p.name} changed just from opening and reading the index, so a "
+            f"read is rewriting the HNSW graph. The committed index would then "
+            f"drift from the repo on any run that touched it."
+        )
+
+
 # ── persistence and idempotency ───────────────────────────────────────────
 
 def test_index_survives_a_fresh_client(chunks):

@@ -39,6 +39,7 @@ and the test suite should say which of the two it just exercised.
 from __future__ import annotations
 
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -324,16 +325,87 @@ def test_confidence_floor_is_documented_as_dead():
         assert result.confidence.grounded, result.confidence.reason
 
 
+#: Written forms of a duration that all mean the same thing, mapped from the
+#: long form to the abbreviations a source page is likely to use. "3 year" and
+#: "3Y" are the same claim about a fund's lock-in; a test that demands one
+#: literal spelling is testing the generator's prose style, not the answer.
+_DURATION_ABBREV = {
+    "year": ("yr", "yrs", "y", "years"),
+    "month": ("m", "mo", "months"),
+    "day": ("d", "days"),
+}
+
+
+def _figure_in(figure: str, text: str) -> bool:
+    """True if `text` states `figure`, allowing equivalent spellings.
+
+    Numeric figures ("1.03", "500") are matched literally - there is only one
+    way to write them. A duration ("3 year") is matched by number plus any
+    accepted spelling of its unit, so the extractive path's "3Y Lock-in" and the
+    generator's "3-year lock-in" both satisfy "3 year".
+    """
+    haystack = text.lower()
+    needle = figure.lower().strip()
+    if needle in haystack:
+        return True
+
+    match = re.fullmatch(r"(\d+(?:\.\d+)?)\s+([a-z]+)", needle)
+    if not match:
+        return False
+    number, unit = match.groups()
+    # The long form is retried too, because the needle may not have matched
+    # literally only due to the separator: "3 year" vs "3-year".
+    #
+    # The gap between number and unit is a space, a hyphen, or both, since
+    # "3 years", "3-year" and "3yr" are all the same claim in the wild. A word
+    # boundary is required so a longer number cannot satisfy a shorter figure.
+    for spelling in (unit, *_DURATION_ABBREV.get(unit, ())):
+        if re.search(rf"{re.escape(number)}[\s-]*{re.escape(spelling)}\b", haystack):
+            return True
+    return False
+
+
 @pytest.mark.parametrize("query,figure,forbidden", SAMPLE_QUERIES,
                          ids=[q[:28] for q, _, _ in SAMPLE_QUERIES])
 def test_sample_returns_a_real_answer(query, figure, forbidden):
-    """AC-16. Runs on the extractive path too, which is a shipping path."""
+    """AC-16. Runs on the extractive path too, which is a shipping path.
+
+    The spelling tolerance in `_figure_in` is what makes the second half of that
+    sentence true. Without it this test only ever passed when the LLM happened to
+    be available and phrased the answer as "3 year", so it silently stopped
+    testing the extractive path exactly when the extractive path was all there
+    was - which is the state a deploy without a working key is permanently in.
+    """
     response = E.answer(query)
     assert not response["is_refusal"], f"refused: {response['text']}"
     assert not check_rules(query, response), check_rules(query, response)
-    assert figure.lower() in response["text"].lower(), response["text"]
+    assert _figure_in(figure, response["text"]), (
+        f"expected the answer to state {figure!r}, got: {response['text']}"
+    )
     if forbidden:
         assert forbidden not in response["text"], response["text"]
+
+
+@pytest.mark.parametrize("figure,text,expected", [
+    ("3 year", "ELSS • 3Y Lock-in.", True),
+    ("3 year", "The lock-in period is 3 years.", True),
+    ("3 year", "The lock-in period is 3-year.", True),
+    ("3 year", "3 yr lock-in applies.", True),
+    ("3 year", "5 year lock-in.", False),
+    ("3 year", "There is no lock-in period.", False),
+    ("1.03", "Expense ratio is 1.03%.", True),
+    ("1.03", "Expense ratio is 0.84%.", False),
+    ("500", "Minimum SIP is Rs. 500.", True),
+    ("500", "Minimum SIP is Rs. 100.", False),
+])
+def test_figure_matching_tolerates_spelling_but_not_substance(figure, text, expected):
+    """The matcher itself, so its tolerance cannot quietly widen into weakness.
+
+    The two False rows are the ones that matter: a longer lock-in must not
+    satisfy "3 year", and a total absence of the figure must not either. If
+    someone loosens the regex until everything passes, this fails.
+    """
+    assert _figure_in(figure, text) is expected
 
 
 @pytest.mark.parametrize("query", MUST_REFUSE,
@@ -371,7 +443,10 @@ def test_elss_answer_never_claims_a_statutory_deduction():
     """
     response = E.answer("What is the lock-in period of HDFC ELSS Tax Saver Fund?")
     assert not response["is_refusal"]
-    assert "3 year" in response["text"].lower(), response["text"]
+    # _figure_in, not a literal: the extractive path answers "3Y Lock-in" and
+    # this test is explicitly about the extractive path, so demanding the exact
+    # substring "3 year" tested the generator's phrasing rather than the answer.
+    assert _figure_in("3 year", response["text"]), response["text"]
     assert lint_output(response["text"]).ok
 
 

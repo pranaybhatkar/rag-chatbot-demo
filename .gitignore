@@ -22,13 +22,36 @@
 #   with no chroma_db/. So "rebuild it once at startup" is not "build it once",
 #   it is "build it on every cold boot, forever", which is exactly what was
 #   being avoided. Each one pays the ~90 MB model download and a fresh
-#   377-chunk embed, and holds the 942 MB peak while it happens.
+#   377-chunk embed while it happens.
 #
-# 8.8 MB is a cheap price for removing that from every cold start. It is
-# committed at the repo root because retrieval_engine resolves ROOT /
-# "chroma_db". Note the folder is now a TRACKED artefact: a rebuild dirties the
-# working tree, which is intended - a deployed index that silently differs from
-# the committed one is worth seeing in `git status`.
+# What committing it bought, measured on a fresh `git clone` of this repo by
+# running one path with the committed folder and one with it deleted:
+#
+#                       committed index     rebuilt from chunks
+#     boot to index          1.45 s               35.20 s
+#     peak RSS                 584 MB              858 MB
+#
+# So 33.75 s and 274 MB off every cold boot, for 8.8 MB in the repo.
+#
+# It is committed at the repo root because retrieval_engine resolves ROOT /
+# "chroma_db".
+#
+# ONE FILE IN HERE IS ALWAYS GOING TO LOOK DIRTY, AND THAT IS EXPECTED:
+# chroma.sqlite3. Merely OPENING the index rewrites its SQLite header - the
+# file change counter and a couple of page pointers - so running the app or the
+# test suite dirties it. Measured: opening the collection and reading it, with
+# no query and no write, changes 10 bytes across 7 runs in the header, in 4
+# distinct pages. The data is untouched; every HNSW .bin stays byte-identical
+# and all 377 served vectors are bitwise equal to data/processed/vectors.npy.
+#
+# Do not "fix" this by recommitting after a test run, and do not treat it as
+# evidence the index drifted. A real rebuild is visible as the .bin files
+# changing, not as sqlite3 being dirty. If you do need to see through it:
+#     git diff --stat -- chroma_db/          # .bin files dirty => real rebuild
+#     git diff --stat -- chroma_db/*.sqlite3  # alone => just the header
+#
+# What genuinely must not drift is the index agreeing with chunks.jsonl, which
+# test_the_committed_index_is_present_and_complete checks on every run.
 #
 # Shipping it is also safe by construction, not by hope. ensure_index() still
 # rebuilds whenever index_status() cannot open a complete collection, so if
