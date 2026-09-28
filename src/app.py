@@ -443,9 +443,11 @@ def main() -> None:
     # ── warm the engine before anything interactive ─────────────────────
     # Done here rather than lazily on first submit so the one-off cost is paid
     # while the user is reading the page, not while they are waiting on a
-    # question they already asked. A cold deploy spends tens of seconds here:
-    # `chroma_db/` is gitignored, so it is rebuilt from `chunks.jsonl`, and the
-    # embedding model downloads ~90 MB on an empty cache. Both are one-time.
+    # question they already asked. `chroma_db/` is committed, so the usual path
+    # is an index open costing milliseconds and the model is not loaded until
+    # the first question actually needs it. The spinner therefore only runs
+    # long when the committed index was unusable and had to be rebuilt, which is
+    # worth surfacing rather than hiding — see `_index_note`.
     try:
         with st.spinner("Preparing the search index (first run only)…"):
             engine = _engine()

@@ -102,7 +102,12 @@ def test_env_and_example_agree_on_the_model():
     """.env and .env.example drifting is the bug that made the change above
     necessary: the model moved in one file and the deploy template kept the old
     name, so a fresh deploy silently ran a different generator than the one the
-    tests were tuned against."""
+    tests were tuned against.
+
+    secrets.toml.example is included because it is a third committed template
+    naming the same variable. A new template is easy to add and then forget, and
+    it would reintroduce exactly the drift this test exists to catch.
+    """
     import re
 
     def read(path):
@@ -111,9 +116,85 @@ def test_env_and_example_agree_on_the_model():
         assert m, f"no GROQ_MODEL in {path}"
         return m.group(1).strip().strip('"').strip("'")
 
-    assert read(".env") == read(".env.example"), (
-        "GROQ_MODEL differs between .env and .env.example; a deploy built from "
-        "the template would run a different generator than the tests"
+    models = {p: read(p) for p in (".env", ".env.example",
+                                   ".streamlit/secrets.toml.example")}
+    assert len(set(models.values())) == 1, (
+        f"GROQ_MODEL disagrees across templates, so a deploy built from one of "
+        f"them would run a different generator than the tests: {models}"
+    )
+
+
+class _PoisonedSecrets:
+    """Stands in for ``st.secrets`` and records every read attempted on it."""
+
+    def __init__(self) -> None:
+        self.reads: list[str] = []
+
+    def __getitem__(self, name):
+        self.reads.append(name)
+        raise AssertionError(
+            f"st.secrets[{name!r}] was read with no secrets.toml present; on a "
+            f"Community Cloud deploy that renders 'No secrets found' into the "
+            f"page for every visitor"
+        )
+
+
+def _poison_streamlit(monkeypatch) -> _PoisonedSecrets:
+    """Install a fake ``streamlit`` module whose ``.secrets`` trips if touched."""
+    import types
+
+    poison = _PoisonedSecrets()
+    fake = types.ModuleType("streamlit")
+    fake.secrets = poison
+    monkeypatch.setitem(sys.modules, "streamlit", fake)
+    return poison
+
+
+def test_secrets_tier_is_skipped_when_no_secrets_file_exists(monkeypatch, tmp_path):
+    """Regression: reading st.secrets with no file behind it is not silent.
+
+    Streamlit renders "No secrets found. Valid paths for a secrets.toml file or
+    secret directories are: ..." into the page rather than raising quietly, so
+    an unguarded lookup put a red error banner in front of every user of a
+    Community Cloud deploy — which has no secrets.toml, because the dashboard
+    injects environment variables instead.
+
+    The test asserts the mechanism rather than the symptom: with no file, the
+    st.secrets tier must not be reached at all. Reaching it is the bug.
+    """
+    monkeypatch.chdir(tmp_path)          # a directory with no .streamlit/
+    monkeypatch.setattr(vs, "ROOT", tmp_path)
+    assert not vs._secrets_file_present(), "precondition: no secrets file here"
+    poison = _poison_streamlit(monkeypatch)
+
+    assert vs._streamlit_secret("GROQ_API_KEY") == ""
+    assert poison.reads == [], (
+        f"st.secrets was read {poison.reads} with no secrets.toml present"
+    )
+
+
+def test_secrets_tier_is_reached_when_a_secrets_file_exists(monkeypatch, tmp_path):
+    """The guard must not be so eager that it also disables the real path.
+
+    Symmetric to the test above on purpose: a guard that always returns "no file"
+    would pass the regression test while silently making the st.secrets tier
+    dead code, which is how the tier the deploy depends on gets lost.
+    """
+    streamlit_dir = tmp_path / ".streamlit"
+    streamlit_dir.mkdir()
+    (streamlit_dir / "secrets.toml").write_text('GROQ_API_KEY = "gsk_x"\n',
+                                                encoding="utf-8")
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(vs, "ROOT", tmp_path)
+
+    assert vs._secrets_file_present(), "the file is right here, it must be found"
+    poison = _poison_streamlit(monkeypatch)
+
+    # The poison raises, which _streamlit_secret must absorb as "not found".
+    assert vs._streamlit_secret("GROQ_API_KEY") == ""
+    assert poison.reads == ["GROQ_API_KEY"], (
+        "a present secrets.toml must actually be read, or the st.secrets tier "
+        "is dead code behind a guard that always says no"
     )
 
 
@@ -158,15 +239,111 @@ def test_example_env_contains_no_real_secret():
 
 
 def test_missing_credentials_are_reported_not_raised(monkeypatch):
-    """A missing key must degrade to retrieval-only mode, not crash the build."""
-    monkeypatch.setattr(vs.os, "getenv", lambda *a, **k: "")
-    creds = vs.load_credentials()
+    """A missing key must degrade to retrieval-only mode, not crash the build.
+
+    The two sources are removed rather than shadowed. Stubbing a lookup function
+    is what this test used to do, and it stopped working the moment the
+    implementation stopped calling that function - it went on passing while
+    testing nothing, because the real key was still sitting in os.environ.
+
+    That key gets there permanently: the first load_credentials() in the session
+    runs load_dotenv, which leaves its values in the process for the rest of the
+    run. So delenv is the only thing that genuinely clears the source, and
+    pointing at a path that does not exist stops load_dotenv putting them back.
+    """
+    for name in vs.CREDENTIAL_VARS:
+        monkeypatch.delenv(name, raising=False)
+
+    creds = vs.load_credentials(dotenv_path=ROOT / "no_such_file.env",
+                                secrets_reader=lambda name: "")
     assert not creds.ok
+    assert creds.key_source == vs.SRC_MISSING
+    assert creds.model_source == vs.SRC_MISSING
     report = "\n".join(vs.report_credentials(creds))
     assert "not set" in report
     assert "Retrieval-only mode still works" in report
     # Nothing secret to leak on this path, and no stray value printed either.
     assert "FAIL" in report
+
+
+# ── credential precedence: st.secrets, then the environment ────────────────
+
+def test_secrets_take_precedence_over_the_environment():
+    """Community Cloud's path. The secret must win even though ``.env`` is also
+    present and loadable, or a developer's local key would silently shadow the
+    deployed one."""
+    creds = vs.load_credentials(secrets_reader=lambda name: "value-from-secrets")
+    assert creds.api_key == "value-from-secrets"
+    assert creds.key_source == vs.SRC_SECRETS
+    assert creds.model == "value-from-secrets"
+    assert creds.model_source == vs.SRC_SECRETS
+    assert creds.ok
+
+
+def test_environment_is_the_fallback_when_secrets_are_absent():
+    """The local path, and the only path available when running under pytest or
+    ``python -m src.vector_store``, where no Streamlit runtime exists."""
+    creds = vs.load_credentials(secrets_reader=lambda name: "")
+    assert creds.api_key, "neither st.secrets nor the environment supplied a key"
+    assert creds.model, "neither st.secrets nor the environment supplied a model"
+    assert creds.ok
+    # Sourced from the real environment or from .env, both of which are correct
+    # local configurations; what must not happen is MISSING.
+    assert creds.key_source in (vs.SRC_ENV, vs.SRC_DOTENV)
+    assert creds.model_source in (vs.SRC_ENV, vs.SRC_DOTENV)
+
+
+def test_source_label_is_stable_across_repeated_calls():
+    """Regression test. The label used to be derived by sampling os.environ
+    before and after load_dotenv, which is correct on the first call and wrong on
+    every later one - because that first load_dotenv leaves its values in the
+    process permanently, so the second call sees a pre-existing variable and
+    reports the file's own credential as coming from the environment. In a Streamlit
+    app load_credentials runs on every question, so the label would have flipped
+    after the first one and the diagnostic would have been actively misleading.
+    """
+    first = vs.load_credentials(secrets_reader=lambda name: "")
+    second = vs.load_credentials(secrets_reader=lambda name: "")
+    assert first.key_source == second.key_source, (
+        f"source label flipped between calls: "
+        f"{first.key_source!r} then {second.key_source!r}")
+    assert first.model_source == second.model_source
+    assert first.api_key == second.api_key
+    # This repo ships a .env, so both calls should be attributed to the file.
+    assert first.key_source == vs.SRC_DOTENV, (
+        f"expected the .env file to be the source, got {first.key_source!r}")
+
+
+def test_streamlit_secret_is_empty_outside_a_streamlit_runtime():
+    """The real reader, not the injected one. Under pytest there is no
+    ScriptRunContext and no secrets.toml, so this is the path that would raise
+    if _streamlit_secret were not total. It must return "" and not propagate."""
+    assert vs._streamlit_secret("GROQ_API_KEY_THAT_IS_NOT_CONFIGURED") == ""
+
+
+def test_streamlit_secret_reads_a_present_key(monkeypatch, tmp_path):
+    """And it must actually read a value when one is there, or the fallback
+    above would pass for the right reason on a broken implementation.
+
+    The secrets file has to exist on disk as well as in the stubbed mapping:
+    _secrets_file_present() gates the lookup, because touching st.secrets with
+    no file behind it renders an error into the page rather than returning
+    nothing. A test that stubbed only the mapping would therefore have started
+    failing the moment that guard was added, for the right reason but with a
+    misleading message.
+    """
+    import streamlit as st
+
+    streamlit_dir = tmp_path / ".streamlit"
+    streamlit_dir.mkdir()
+    (streamlit_dir / "secrets.toml").write_text('GROQ_API_KEY = "gsk_x"\n',
+                                                encoding="utf-8")
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(vs, "ROOT", tmp_path)
+    monkeypatch.setattr(st, "secrets", {"GROQ_API_KEY": "gsk_from_secrets"},
+                        raising=False)
+
+    assert vs._streamlit_secret("GROQ_API_KEY") == "gsk_from_secrets"
 
 
 # ── embedding ─────────────────────────────────────────────────────────────

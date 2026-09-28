@@ -65,9 +65,20 @@ _MODEL = None
 
 # ── credentials ───────────────────────────────────────────────────────────
 
+#: Where a credential was found, named so a misconfigured deploy is
+#: diagnosable from the log without ever printing the value.
+SRC_SECRETS = "st.secrets"      # a .streamlit/secrets.toml entry
+SRC_ENV = "environment"         # a real exported process variable
+SRC_DOTENV = ".env"             # the local development file
+SRC_MISSING = "MISSING"
+
+#: The variables the generator needs. Embedding uses neither of them.
+CREDENTIAL_VARS = ("GROQ_API_KEY", "GROQ_MODEL")
+
+
 @dataclass(frozen=True)
 class Credentials:
-    """Presence and shape of the required env vars. Never the values."""
+    """Presence and shape of the required credentials. Never the values."""
 
     api_key: str
     model: str
@@ -79,26 +90,148 @@ class Credentials:
         return bool(self.api_key) and bool(self.model)
 
 
-def load_credentials(dotenv_path: Path | None = None) -> Credentials:
-    """Load and validate ``.env`` via python-dotenv, then report on it.
+def _secrets_file_present() -> bool:
+    """True if a ``.streamlit/secrets.toml`` exists where Streamlit would look.
 
-    Precedence is python-dotenv's default: real environment variables win over
-    the file, so a deployment can inject the key without a file on disk.
+    This guard exists because reading ``st.secrets`` when there is no secrets
+    file is not a quiet no-op. Streamlit renders "No secrets found. Valid paths
+    for a secrets.toml file or secret directories are: ..." into the page, so an
+    unguarded lookup on a Community Cloud deploy - which has no secrets.toml,
+    because the dashboard injects environment variables instead - puts a red
+    error banner in front of every user who loads the app. Caught by
+    test_refusals_render_cited_dated_and_without_advice, which asserts the app
+    renders no errors.
 
-    The key is never echoed. Only its length and a format sanity-check are
-    reported, because a verification routine that prints the secret it is
-    verifying is how secrets end up in build logs.
+    Both the working directory and the repository root are searched, walking
+    up to the filesystem root, because Streamlit searches upward from the
+    working directory and the two are not always the same folder.
+
+    Limitation, stated rather than hidden: this does not cover Streamlit's
+    ``secrets_dir`` config option, under which secrets live in an arbitrary
+    directory. That is not a documented Streamlit configuration and nothing in
+    this project uses it, but a deployment that adopted it would fall through
+    to the environment tier - which is where Community Cloud's secrets come from
+    anyway, so it would still work.
     """
-    path = dotenv_path or (ROOT / ".env")
-    file_existed = path.exists()
-    from dotenv import load_dotenv
+    seen: list[Path] = []
+    for base in (Path.cwd(), ROOT):
+        try:
+            base = base.resolve()
+        except OSError:
+            continue
+        if base not in seen:
+            seen.append(base)
+    for base in seen:
+        for directory in (base, *base.parents):
+            try:
+                if (directory / ".streamlit" / "secrets.toml").is_file():
+                    return True
+            except OSError:
+                continue
+    return False
 
+
+def _streamlit_secret(name: str) -> str:
+    """Read one name from ``st.secrets``, or return "" when it is not there.
+
+    In Streamlit 1.42.2 this reads ``.streamlit/secrets.toml`` and nothing else.
+    It does **not** fall back to the process environment: with no secrets file
+    present, ``st.secrets[name]`` raises ``FileNotFoundError`` even when the
+    variable is sitting in ``os.environ`` (measured, not assumed). That is the
+    whole reason the environment tier in :func:`load_credentials` is not
+    redundant.
+
+    The file-existence guard runs first - see :func:`_secrets_file_present` for
+    why touching ``st.secrets`` blind is not safe.
+
+    Deliberately total, because three callers reach this and none of them can
+    assume a Streamlit runtime is live:
+
+      * ``app.py`` under ``streamlit run``, where a ScriptRunContext exists.
+      * ``python -m src.vector_store`` and the pytest suite, where no runtime
+        exists at all and ``st.secrets`` raises on first touch.
+      * any future caller that is not a Streamlit app.
+
+    A missing key, an absent secrets.toml, an unimportable Streamlit and a
+    half-initialised context therefore all collapse to one answer: not found,
+    fall through to the environment. Streamlit is imported here rather than at
+    module scope so that ``vector_store`` stays importable, and cheap, without
+    it - Phase 3 embedding has no business pulling in a web framework.
+    """
+    if not _secrets_file_present():
+        return ""
+    try:
+        import streamlit as st
+    except Exception:
+        return ""
+    try:
+        value = st.secrets[name]
+    except Exception:
+        # KeyError when the name is absent, FileNotFoundError or
+        # StreamlitSecretNotFoundError when the file went away between the guard
+        # and the read. None is worth propagating: a missing credential is a
+        # degraded mode that load_credentials reports, not a crash.
+        return ""
+    return str(value) if value else ""
+
+
+def load_credentials(dotenv_path: Path | None = None, *,
+                     secrets_reader=None) -> Credentials:
+    """Resolve the generator credentials, in precedence order.
+
+      1. ``st.secrets``   - a ``.streamlit/secrets.toml`` entry, for a checkout
+                           that keeps its secrets in the Streamlit convention.
+      2. the environment - a genuinely exported variable. **This is the tier
+                           Community Cloud actually resolves through.** The
+                           dashboard does not write a secrets.toml; it injects
+                           the value as an environment variable, and Streamlit
+                           1.42.2's ``st.secrets`` does not read the environment
+                           (measured: FileNotFoundError with the variable set).
+                           So an implementation that used only ``st.secrets``
+                           would find nothing there, and one that used only
+                           ``st.secrets`` would be untestable off-platform.
+      3. ``.env``, which lands in the environment via ``load_dotenv`` and is
+         therefore the same code path as tier 2 - which is exactly what makes
+                           one implementation serve local dev and a hosted
+                           deploy unchanged.
+      4. nothing          - reported, never raised, so the app still starts and
+                           still answers from the index without a generator.
+
+    Reading the source *accurately* is the reason for the non-destructive read
+    below. ``load_dotenv`` hands back the values it parsed whether or not it
+    actually set them, so it cannot say where a variable came from. Sampling
+    ``os.environ`` before and after the load also looks like it works, and does
+    report correctly on the first call - but the first ``load_dotenv`` leaves its
+    values in the process for the rest of the run, so every later call reports
+    the same credential as coming from the environment when it came from the
+    file. ``dotenv_values`` reads the file without mutating anything, so the
+    answer is the same on every call.
+
+    ``secrets_reader`` exists so this precedence is testable without a Streamlit
+    runtime, and so a test can assert "no credential from any source" by
+    neutralising all the sources at once rather than one at a time.
+    """
+    read_secrets = (secrets_reader if secrets_reader is not None
+                    else _streamlit_secret)
+    path = dotenv_path or (ROOT / ".env")
+
+    from dotenv import dotenv_values, load_dotenv
+
+    file_vals = dotenv_values(path) if path.is_file() else {}
+
+    # Still called, so the variables stay available to anything else in the
+    # process that reads os.environ directly. The label below does not depend
+    # on it, which is the point.
     load_dotenv(path, override=False)
 
     def _get(name: str) -> tuple[str, str]:
-        val = os.getenv(name, "")
-        from_file = val != ""
-        return val, (str(path) if from_file else ("environment" if val else "MISSING"))
+        val = read_secrets(name)
+        if val:
+            return val, SRC_SECRETS
+        val = os.environ.get(name, "")
+        if not val:
+            return "", SRC_MISSING
+        return val, (SRC_DOTENV if file_vals.get(name) == val else SRC_ENV)
 
     key, key_src = _get("GROQ_API_KEY")
     model, model_src = _get("GROQ_MODEL")
@@ -111,9 +244,9 @@ def report_credentials(creds: Credentials) -> list[str]:
     def _short(src: str) -> str:
         # A 90-character absolute path makes the status line unreadable, and the
         # directory is already known from the banner.
-        return Path(src).name if src not in ("environment", "MISSING") else src
+        return src if src in (SRC_SECRETS, SRC_ENV, SRC_MISSING) else Path(src).name
 
-    lines = ["", "CREDENTIALS  (.env via python-dotenv)", "-" * 96]
+    lines = ["", "CREDENTIALS  (st.secrets -> environment -> .env)", "-" * 96]
     for label, value, source in (
         ("GROQ_API_KEY", creds.api_key, creds.key_source),
         ("GROQ_MODEL", creds.model, creds.model_source),
@@ -548,20 +681,29 @@ def index_status(path: Path = CHROMA_PATH) -> dict:
 
 def ensure_index(path: Path = CHROMA_PATH, *, verbose: bool = True,
                  check_alignment: bool = False) -> dict:
-    """Return a usable collection, materialising it from ``chunks.jsonl`` if not.
+    """Return a usable collection, rebuilding it from ``chunks.jsonl`` if not.
 
-    Called this rather than a *cloud fallback* on purpose. There is no remote
-    index to fail over to: ``chroma_db/`` is a derived artefact whose only
-    source of truth is ``data/processed/chunks.jsonl``, which is committed to
-    the repo. Two ways to obtain the artefact exist — build it in CI and ship
-    the 8.8 MB folder, or rebuild it on first boot — and this is the second. It
-    does **not** help if ``chunks.jsonl`` is absent, and it does not help
-    offline: ``get_model()`` downloads ~90 MB of weights on a cold cache, and
-    that download is the real cold-start cost, not the 377 embeddings.
+    On a normal deploy this function does almost nothing: ``chroma_db/`` is
+    committed, so :func:`index_status` finds a complete collection and the first
+    branch returns without touching the embedding model at all. The rebuild
+    below is the *fallback*, not the expected path, and it exists for three
+    cases - a local checkout that never built the index, a stale index whose row
+    count disagrees with ``chunks.jsonl``, and a committed folder that turns out
+    not to load on an untested platform.
+
+    That last case is why shipping the folder is safe rather than a gamble. If
+    these bytes cannot be opened anywhere, the failure mode is the old slow
+    boot, not a broken app.
+
+    The rebuild needs no network and no secret, only the model weights, and it
+    cannot help if ``chunks.jsonl`` is absent: there is no remote index to fail
+    over to, because ``chroma_db/`` is derived from that file and nothing else.
+    So the missing-chunk-file error below is raised *before* any of this, as the
+    only message that can tell an operator what is actually wrong.
 
     Differences from :func:`build`, all deliberate:
       * no ``verify_alignment`` by default — it re-embeds the whole corpus a
-        second time purely to cross-check Phase 3, which would double cold-start
+        second time purely to cross-check Phase 3, which would double rebuild
         cost for a check that already ran. Pass ``check_alignment=True`` to get it.
       * ``save_npy`` is best-effort. On a read-only or ephemeral filesystem the
         sidecar audit artefacts are a convenience, and failing to write them

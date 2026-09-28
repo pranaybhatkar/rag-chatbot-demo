@@ -498,11 +498,10 @@ def _chunks() -> dict[str, dict]:
 def _open_index():
     """Open ./chroma_db, materialising it from chunks.jsonl if it is unusable.
 
-    ``chroma_db/`` is gitignored — it is a derived artefact, rebuilt from
-    ``data/processed/chunks.jsonl``, which *is* committed. So a deploy that ships
-    the source without the 8.8 MB index folder is the expected case, not an
-    error, and the engine rebuilds rather than raising
-    ``FileNotFoundError`` at the first question.
+    ``chroma_db/`` is committed, so a deploy normally finds a complete index and
+    this is just a handle open. The rebuild is a fallback for a checkout that
+    never built one, a stale index, or a committed folder that will not load on
+    an untested platform.
 
     The trigger is a **row count**, not a missing directory. A rebuild killed
     part-way leaves a collection that exists and is non-empty but short, and an
@@ -510,11 +509,15 @@ def _open_index():
     partial index, which fails silently and in the direction that looks like a
     retrieval-quality bug rather than a deployment one.
 
-    The rebuild is not a *cloud fallback* and is worth not calling it one: there
-    is no remote index to fail over to. Its real cold-start cost is the ~90 MB
-    embedding-model download on an empty cache, which happens on first request
-    either way. Set ``HDFC_RAG_INDEX_POLICY=never`` to get the old hard failure
-    back (what CI should use, so a corrupt index cannot rebuild itself away).
+    Worth being precise about, because it decides whether this is a *cold
+    fallback* or a *rebuild-every-boot*: Community Cloud's filesystem is
+    ephemeral, so a fallback that re-derives the index would run again on every
+    recycled container. Committing the folder is what makes "build it once"
+    true. A rebuild here is a sign the committed index was unusable, and its
+    real cost is the ~90 MB model download on an empty cache.
+
+    Set ``HDFC_RAG_INDEX_POLICY=never`` to get the hard failure back — what CI
+    should use, so a corrupt index cannot quietly rebuild itself away.
     """
     result = vs.ensure_index(verbose=True)
     _INDEX_STATE.update(rebuilt=result["rebuilt"], reason=result["reason"],
@@ -1957,9 +1960,12 @@ def main() -> int:
 
     print("\nENV")
     creds = vs.load_credentials()
-    check("GROQ_API_KEY readable via python-dotenv", creds.api_key != "",
-          f"from {Path(creds.key_source).name if creds.key_source != 'MISSING' else creds.key_source}")
-    check("GROQ_MODEL set", creds.model != "", creds.model)
+    # key_source is already a short label ("st.secrets", "environment", ".env",
+    # "MISSING"), so it needs no path shortening here - and printing which of
+    # them answered is the whole point of running this check outside Streamlit,
+    # where st.secrets is unavailable and the answer must come from the fallback.
+    check("GROQ_API_KEY resolved", creds.api_key != "", f"from {creds.key_source}")
+    check("GROQ_MODEL set", creds.model != "", f"from {creds.model_source}")
     if creds.model and creds.model.startswith("llama-"):
         print("    WARNING: llama-* models are no longer served by Groq (HTTP 404).")
 

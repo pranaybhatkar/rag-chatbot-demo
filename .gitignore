@@ -11,20 +11,36 @@
 .streamlit/secrets.toml
 
 # =============================================================================
-# Generated search index
+# Generated search index - COMMITTED, deliberately
 # =============================================================================
-# Large, and fully reproducible: `vector_store.ensure_index()` rebuilds it from
-# data/processed/chunks.jsonl plus the embedding model on first boot. A deploy
-# that ships source without it is the expected case, not a broken one, so the
-# folder is an artefact and not a deliverable.
+# This used to be ignored, on the reasoning that the folder is reproducible from
+# chunks.jsonl plus the model and is therefore an artefact rather than a
+# deliverable. That reasoning was wrong about the deploy, and measurably so.
 #
-# The live index lives at the repo root (retrieval_engine resolves ROOT /
-# "chroma_db"). Left unanchored rather than written `/chroma_db/` because the
-# broader form also catches a copy nested under a test fixture or a stray
-# clone, and there is no directory in this tree that a chroma_db is legitimate
-# in. The trailing slash restricts it to directories, so a file of that name
-# would still be tracked.
-chroma_db/
+#   Streamlit Community Cloud's filesystem is EPHEMERAL. The container is
+#   recycled, and a recycled container starts from the GitHub checkout again -
+#   with no chroma_db/. So "rebuild it once at startup" is not "build it once",
+#   it is "build it on every cold boot, forever", which is exactly what was
+#   being avoided. Each one pays the ~90 MB model download and a fresh
+#   377-chunk embed, and holds the 942 MB peak while it happens.
+#
+# 8.8 MB is a cheap price for removing that from every cold start. It is
+# committed at the repo root because retrieval_engine resolves ROOT /
+# "chroma_db". Note the folder is now a TRACKED artefact: a rebuild dirties the
+# working tree, which is intended - a deployed index that silently differs from
+# the committed one is worth seeing in `git status`.
+#
+# Shipping it is also safe by construction, not by hope. ensure_index() still
+# rebuilds whenever index_status() cannot open a complete collection, so if
+# these bytes ever fail to load on a platform this repo was not built on, the
+# worst outcome is the old slow boot, never a broken app. Portability was
+# checked rather than assumed: index_metadata.pickle contains only builtins and
+# plain data (zero class references, so no library-version coupling),
+# chroma.sqlite3 is ordinary SQLite, and the HNSW .bin files are
+# little-endian, as is every platform this deploys to. chromadb is pinned to
+# the exact version that wrote them.
+#
+# data/index/ is still ignored: nothing reads it, it is a leftover.
 data/index/
 
 # Same thing under a different name: a scratch index left behind while
