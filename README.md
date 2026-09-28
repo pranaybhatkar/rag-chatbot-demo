@@ -13,7 +13,7 @@ absolute bar on personalised investment advice.
 
 | Deliverable | Where |
 |---|---|
-| **Working prototype (live app)** | <!-- TODO: paste your Streamlit Community Cloud URL here --> **[ADD APP LINK]** |
+| **Working prototype (live app)** | <!-- TODO: paste your Streamlit Community Cloud URL here --> https://rag-chatbot-demo-m4-pb.streamlit.app/ |
 | **Demo video (≤3 min)** | <!-- TODO: paste your video URL here --> **[ADD VIDEO LINK]** |
 | **Source list (5 URLs)** | [Section 3](#3-sources) below, and machine-readable in `data/manifest/ingest_manifest.jsonl` |
 | **README (this file)** | `README.md` |
