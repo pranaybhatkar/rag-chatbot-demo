@@ -14,7 +14,7 @@ absolute bar on personalised investment advice.
 | Deliverable | Where |
 |---|---|
 | **Working prototype (live app)** | **https://rag-chatbot-demo-m4-pb.streamlit.app/** |
-| **Demo video (≤3 min)** | <!-- TODO: paste your video URL here --> **[ADD VIDEO LINK]** |
+| **Demo video (≤3 min)** | <!-- TODO: paste your video URL here --> https://drive.google.com/file/d/1a3xeiReVBcyHbd0RQ2eSo5DJZkdJ29yc/view?usp=sharing |
 | **Source list (5 URLs)** | [Section 3](#3-sources) below, and machine-readable in `data/manifest/ingest_manifest.jsonl` |
 | **README (this file)** | `README.md` |
 | **Sample Q&A (12 queries)** | [`docs/sample_qa.md`](docs/sample_qa.md) — generated from the real engine, not hand-written |
